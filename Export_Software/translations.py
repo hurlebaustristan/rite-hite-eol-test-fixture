@@ -438,6 +438,11 @@ STRINGS: dict[str, dict[str, str]] = {
         "Spanish": "Programador Detectado en {port}.",
         "Hmong": "Programmer Pom Ntawm {port}.",
     },
+    "esp_detected_pair": {
+        "English": "Programmer Pair Detected: {ports}.",
+        "Spanish": "Par de Programador Detectado: {ports}.",
+        "Hmong": "Pom Programmer Khub: {ports}.",
+    },
     "esp_multiple_candidates": {
         "English": "Multiple Programmer Candidates Found ({count}) — The App Will Ask You to Choose.",
         "Spanish": "Se Encontraron Múltiples Candidatos de Programador ({count}) — La Aplicación Le Pedirá Que Elija.",

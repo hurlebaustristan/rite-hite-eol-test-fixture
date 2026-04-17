@@ -155,6 +155,8 @@ def discover_upload_targets() -> Esp32UploadDiscovery:
 def describe_esp_prog_detection() -> tuple[bool, str]:
     discovery = discover_upload_targets()
     if discovery.auto_choice is not None:
+        if discovery.auto_choice.is_pair:
+            return (True, tr("esp_detected_pair", ports=" / ".join(discovery.auto_choice.pair_ports)))
         return (True, tr("esp_detected_on", port=discovery.auto_choice.upload_port))
     if discovery.pair_choices:
         return (True, tr("esp_multiple_candidates", count=len(discovery.pair_choices)))
@@ -167,35 +169,71 @@ def run_upload(
     config: Esp32UploadConfig,
     selection: Esp32UploadChoice,
     log_callback: Callable[[str], None],
-) -> None:
-    upload_command = _build_upload_command(config, selection)
+) -> str:
+    upload_ports = _candidate_upload_ports(selection)
     log_callback(f"Using ESP32 flasher: {config.flasher_path}")
     log_callback(f"Using prebuilt firmware bundle: {config.firmware_dir}")
-    log_callback(f"Uploading test firmware to {selection.upload_port}...")
-    _run_command(upload_command, log_callback, "Upload")
-    log_callback(f"Upload succeeded on {selection.upload_port}.")
+    if len(upload_ports) > 1:
+        log_callback(
+            "Detected paired programmer ports: "
+            + " / ".join(upload_ports)
+            + f". Trying {upload_ports[0]} first and automatically retrying the alternate port if needed."
+        )
+
+    errors: list[tuple[str, UploadCommandError]] = []
+    for attempt_index, upload_port in enumerate(upload_ports):
+        if attempt_index == 0:
+            log_callback(f"Uploading test firmware to {upload_port}...")
+        else:
+            log_callback(f"Retrying upload on alternate programmer port {upload_port}...")
+
+        try:
+            upload_command = _build_upload_command(config, upload_port)
+            _run_command(upload_command, log_callback, "Upload")
+            log_callback(f"Upload succeeded on {upload_port}.")
+            return upload_port
+        except UploadCommandError as exc:
+            errors.append((upload_port, exc))
+
+    if len(errors) == 1:
+        raise errors[0][1]
+
+    attempted_ports = ", ".join(upload_ports)
+    last_error = errors[-1][1]
+    raise Esp32UploadError(
+        "Upload failed on paired programmer ports "
+        f"{attempted_ports}. Neither port responded to the ESP32 flasher. "
+        "Check the programming cable and module power, then try again. "
+        f"Last error: {last_error}"
+    )
 
 
-def _build_upload_command(config: Esp32UploadConfig, selection: Esp32UploadChoice) -> list[str]:
+def _build_upload_command(config: Esp32UploadConfig, upload_port: str) -> list[str]:
     flash_options, flash_segments = _read_flash_args(config.firmware_dir)
     command = [
         str(config.flasher_path),
         "--chip",
         ESP32_CHIP,
         "--port",
-        selection.upload_port,
+        upload_port,
         "--baud",
         "921600",
         "--before",
-        "default_reset",
+        "default-reset",
         "--after",
-        "hard_reset",
-        "write_flash",
+        "hard-reset",
+        "write-flash",
         "-z",
     ]
     command.extend(flash_options)
     command.extend(flash_segments)
     return command
+
+
+def _candidate_upload_ports(selection: Esp32UploadChoice) -> list[str]:
+    ordered = [selection.upload_port]
+    ordered.extend(port for port in selection.pair_ports if port != selection.upload_port)
+    return ordered
 
 
 def _read_flash_args(firmware_dir: Path) -> tuple[list[str], list[str]]:

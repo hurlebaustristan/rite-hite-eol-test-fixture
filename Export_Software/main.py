@@ -231,9 +231,13 @@ class UploadConfirmDialog(QDialog):
         details = [
             f"Board: {config.board_name}",
             f"Firmware bundle: {config.firmware_dir.name}",
-            f"Upload port: {choice.upload_port}",
+            f"Primary upload port: {choice.upload_port}",
             f"Detected pair: {' / '.join(choice.pair_ports)}" if choice.is_pair else f"Manual port: {choice.upload_port}",
-            "Rule: the upload port is the lower COM port in the programmer pair.",
+            (
+                "If the selected paired port does not respond, the app will automatically retry the alternate programmer port."
+                if choice.is_pair
+                else "Manual upload mode: the app will use only this selected port."
+            ),
         ]
         for line in details:
             label = QLabel(line)
@@ -566,7 +570,7 @@ class SettingsDialog(QDialog):
 
 class Esp32UploadWorker(QObject):
     log_message = Signal(str)
-    upload_succeeded = Signal(str)
+    upload_succeeded = Signal(str, str)
     upload_failed = Signal(str)
     finished = Signal()
 
@@ -577,9 +581,10 @@ class Esp32UploadWorker(QObject):
 
     def run(self) -> None:
         try:
-            run_upload(self._config, self._choice, self.log_message.emit)
+            used_port = run_upload(self._config, self._choice, self.log_message.emit)
             self.upload_succeeded.emit(
-                f"Rite-Hite Connect test firmware upload completed successfully on {self._choice.upload_port}."
+                used_port,
+                f"Rite-Hite Connect test firmware upload completed successfully on {used_port}."
             )
         except Exception as exc:
             self.upload_failed.emit(str(exc))
@@ -1649,7 +1654,7 @@ class ExportAppWindow(QMainWindow):
             detected_ports = " / ".join(selection.pair_ports)
             if selection.is_pair:
                 self.set_status_message(
-                    f"Starting Rite-Hite Connect test firmware upload. Board: {config.board_name}. Paired ports: {detected_ports}. Uploading on {selection.upload_port}."
+                    f"Starting Rite-Hite Connect test firmware upload. Board: {config.board_name}. Paired ports: {detected_ports}. Trying {selection.upload_port} first and retrying the alternate port automatically if needed."
                 )
             else:
                 self.set_status_message(
@@ -1707,11 +1712,11 @@ class ExportAppWindow(QMainWindow):
 
         self.upload_thread.start()
 
-    def on_upload_succeeded(self, message: str) -> None:
+    def on_upload_succeeded(self, used_port: str, message: str) -> None:
         self.append_status_message(message, severity="success")
         self._show_flash_banner(tr("upload_success_flash"), success=True)
         if self._last_upload_choice is not None:
-            save_last_successful_upload(self._last_upload_choice.upload_port, message.strip())
+            save_last_successful_upload(used_port, message.strip())
             self._update_last_operation_ui()
 
     def on_upload_failed(self, message: str) -> None:
