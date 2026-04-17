@@ -113,7 +113,7 @@ def write_export_csv(export_run: ExportRun) -> Path:
     timestamp = datetime.now()
     timestamp_for_rows = timestamp.strftime("%Y-%m-%d %H:%M:%S")
     filename_stem = timestamp.strftime("%Y-%m-%d_%H-%M-%S")
-    target = exports_dir / f"{filename_stem}_run{export_run.run_sequence}_{export_run.outcome}.csv"
+    target = exports_dir / f"{filename_stem}_{export_run.outcome}.csv"
     target = _deduplicate_path(target)
 
     with target.open("w", newline="", encoding="utf-8") as handle:

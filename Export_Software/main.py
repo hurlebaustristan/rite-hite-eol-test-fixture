@@ -634,9 +634,7 @@ class OneClickWorker(QObject):
             save_last_successful_export(saved_path, self._fixture_port)
             self.log_message.emit(
                 tr(
-                    "export_saved",
-                    seq=export_run.run_sequence,
-                    outcome=export_run.outcome,
+                    "export_saved_simple",
                     name=saved_path.name,
                 )
             )
@@ -1539,7 +1537,7 @@ class ExportAppWindow(QMainWindow):
             save_last_successful_export(saved_path, selected_port.device)
             self._update_last_operation_ui()
             self.append_status_message(
-                tr("export_saved", seq=export_run.run_sequence, outcome=export_run.outcome, name=saved_path.name),
+                tr("export_saved_simple", name=saved_path.name),
                 severity="success",
             )
             self._show_flash_banner(tr("export_saved_flash", name=saved_path.name), success=True)
@@ -1624,26 +1622,11 @@ class ExportAppWindow(QMainWindow):
             return dialog.selected_choice()
         return None
 
-    def confirm_upload_choice(self, config: Esp32UploadConfig, choice: Esp32UploadChoice) -> bool:
-        details = [
-            "Upload the Rite-Hite Connect test firmware now?",
-            "",
-            f"Board: {config.board_name}",
-            f"Firmware bundle: {config.firmware_dir.name}",
-            f"Upload port: {choice.upload_port}",
-        ]
-        if choice.is_pair:
-            details.append(f"Detected programmer pair: {' / '.join(choice.pair_ports)}")
-            details.append(
-                "If the first port does not respond, the app will retry the alternate programmer port automatically."
-            )
-        else:
-            details.append("Manual upload mode: only the selected port will be used.")
-
+    def confirm_upload_choice(self, _config: Esp32UploadConfig, _choice: Esp32UploadChoice) -> bool:
         reply = QMessageBox.question(
             self,
-            "Confirm Rite-Hite Connect Test Firmware Upload",
-            "\n".join(details),
+            tr("confirm_upload_title"),
+            tr("confirm_upload_body"),
             QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.Cancel,
             QMessageBox.StandardButton.Yes,
         )

@@ -1,5 +1,5 @@
 #ifndef MyAppVersion
-  #define MyAppVersion "2026.4.17.3"
+  #define MyAppVersion "2026.4.17.4"
 #endif
 
 #define MyAppName "EOL Export Software"

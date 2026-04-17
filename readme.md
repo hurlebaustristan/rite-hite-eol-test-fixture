@@ -36,7 +36,7 @@ https://github.com/hurlebaustristan/rite-hite-eol-test-fixture/releases/latest
 Download the installer asset named:
 
 ```text
-EOL_Export_Software_Setup_2026.4.17.3.exe
+EOL_Export_Software_Setup_2026.4.17.4.exe
 ```
 
 ### Fastest Install Path
@@ -44,13 +44,13 @@ EOL_Export_Software_Setup_2026.4.17.3.exe
 1. Get the installer file named:
 
 ```text
-EOL_Export_Software_Setup_2026.4.17.3.exe
+EOL_Export_Software_Setup_2026.4.17.4.exe
 ```
 
 2. If you built the project locally, the installer is created here:
 
 ```text
-C:\TouchGFXProjects\EOL_TestFixture_Final\Export_Software\dist\installer\EOL_Export_Software_Setup_2026.4.17.3.exe
+C:\TouchGFXProjects\EOL_TestFixture_Final\Export_Software\dist\installer\EOL_Export_Software_Setup_2026.4.17.4.exe
 ```
 
 3. Double-click the installer.
@@ -132,7 +132,7 @@ cmd /c Export_Software\build_installer.bat
 After the build finishes, the installer will be here:
 
 ```text
-Export_Software\dist\installer\EOL_Export_Software_Setup_2026.4.17.3.exe
+Export_Software\dist\installer\EOL_Export_Software_Setup_2026.4.17.4.exe
 ```
 
 The unpacked packaged app folder will be here:

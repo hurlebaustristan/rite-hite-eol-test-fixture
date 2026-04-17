@@ -283,6 +283,16 @@ STRINGS: dict[str, dict[str, str]] = {
         "Spanish": "¿Extraer la última ejecución de prueba del banco?",
         "Hmong": "Rho qhov kev sim tshiab tshaj plaws los ntawm lub rooj sim?",
     },
+    "confirm_upload_title": {
+        "English": "Confirm Upload",
+        "Spanish": "Confirmar Carga",
+        "Hmong": "Paub Meej Tso",
+    },
+    "confirm_upload_body": {
+        "English": "Upload The Rite-Hite Connect Test Firmware?",
+        "Spanish": "Â¿Cargar El Firmware De Prueba Rite-Hite Connect?",
+        "Hmong": "Tso Rite-Hite Connect Test Firmware?",
+    },
     "export_cancelled": {
         "English": "Export cancelled. No serial port was selected.",
         "Spanish": "Exportación cancelada. No se seleccionó un puerto serial.",
@@ -294,9 +304,14 @@ STRINGS: dict[str, dict[str, str]] = {
         "Hmong": "Txuas rau {port}. Thov xwm txheej kev xa tawm los ntawm lub rooj sim kev kuaj.",
     },
     "export_saved": {
-        "English": "Saved run {seq} ({outcome}) to {name}.",
+        "English": "Saved {name}.",
         "Spanish": "Ejecución {seq} ({outcome}) guardada en {name}.",
-        "Hmong": "Khaws kev sim {seq} ({outcome}) rau {name}.",
+        "Hmong": "Khaws {name}.",
+    },
+    "export_saved_simple": {
+        "English": "Saved {name}.",
+        "Spanish": "Se guardÃ³ {name}.",
+        "Hmong": "Khaws {name}.",
     },
     "export_saved_flash": {
         "English": "Export saved successfully — {name}",
