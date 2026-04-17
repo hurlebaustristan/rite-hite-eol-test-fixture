@@ -487,11 +487,6 @@ STRINGS: dict[str, dict[str, str]] = {
         "Spanish": "Activar Modo Oscuro",
         "Hmong": "Qhib Hom Tsaus",
     },
-    "settings_font_size": {
-        "English": "Font Size",
-        "Spanish": "Tamaño de Fuente",
-        "Hmong": "Loj Ntawv",
-    },
     "settings_language_section": {
         "English": "Language",
         "Spanish": "Idioma",
@@ -645,6 +640,16 @@ STRINGS: dict[str, dict[str, str]] = {
         "English": "Upload Firmware",
         "Spanish": "Cargar Firmware",
         "Hmong": "Tso Firmware",
+    },
+    "oct_step_uploading_label": {
+        "English": "Uploading",
+        "Spanish": "Cargando",
+        "Hmong": "Tab Tom Tso",
+    },
+    "oct_step_uploaded": {
+        "English": "Uploaded Firmware",
+        "Spanish": "Firmware Cargado",
+        "Hmong": "Firmware Tso Tiav",
     },
     "oct_step_comms": {
         "English": "Comms",

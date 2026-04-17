@@ -21,7 +21,7 @@ https://github.com/hurlebaustristan/rite-hite-eol-test-fixture/releases/latest
 Use the installer asset named:
 
 ```text
-EOL_Export_Software_Setup_2026.4.17.2.exe
+EOL_Export_Software_Setup_2026.4.17.3.exe
 ```
 
 ### Exact Installer File
@@ -29,23 +29,23 @@ EOL_Export_Software_Setup_2026.4.17.2.exe
 Current installer build:
 
 ```text
-Export_Software\dist\installer\EOL_Export_Software_Setup_2026.4.17.2.exe
+Export_Software\dist\installer\EOL_Export_Software_Setup_2026.4.17.3.exe
 ```
 
 If you are already inside this repository on Windows, the full path is:
 
 ```text
-C:\TouchGFXProjects\EOL_TestFixture_Final\Export_Software\dist\installer\EOL_Export_Software_Setup_2026.4.17.2.exe
+C:\TouchGFXProjects\EOL_TestFixture_Final\Export_Software\dist\installer\EOL_Export_Software_Setup_2026.4.17.3.exe
 ```
 
 ### How To Install
 
-1. Double-click `EOL_Export_Software_Setup_2026.4.17.2.exe`.
+1. Double-click `EOL_Export_Software_Setup_2026.4.17.3.exe`.
 2. Accept the installer prompts.
 3. Keep the default install folder unless you have a local policy that says otherwise.
 4. Leave the main application component enabled.
 5. Optionally leave the documentation component enabled if you want the Word manuals copied into the install.
-6. Finish the install and launch the app from the Start Menu shortcut `Rite-Hite > EOL Export Software` or the optional desktop shortcut.
+6. Finish the install and launch the app from the Start Menu shortcut `Rite-Hite > EOL_Export_Software` or the optional desktop shortcut.
 
 ### What To Hand To Another User
 
@@ -61,7 +61,7 @@ cmd /c Export_Software\build_installer.bat
 After the build completes, the installer will be here:
 
 ```text
-Export_Software\dist\installer\EOL_Export_Software_Setup_2026.4.17.2.exe
+Export_Software\dist\installer\EOL_Export_Software_Setup_2026.4.17.3.exe
 ```
 
 The installer includes:
@@ -75,10 +75,12 @@ The installer includes:
 Installed builds store writable runtime data in:
 
 ```text
-%LOCALAPPDATA%\Rite-Hite\EOL Export Software
+%LOCALAPPDATA%\Rite-Hite\EOL_Export_Software
 ```
 
 That is also the first place to check for generated CSV exports and saved runtime state on an installed machine.
+
+If you are upgrading from an older install, the app will try to move the legacy runtime-data folder with spaces into the new underscore-based folder on first launch.
 
 ## Run From Source
 

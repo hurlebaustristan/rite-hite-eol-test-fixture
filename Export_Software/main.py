@@ -202,64 +202,6 @@ class UploadTargetPickerDialog(QDialog):
         return None
 
 
-class UploadConfirmDialog(QDialog):
-    def __init__(self, config: Esp32UploadConfig, choice: Esp32UploadChoice, parent: QWidget | None = None) -> None:
-        super().__init__(parent)
-        self.setWindowTitle("Confirm Rite-Hite Connect Test Firmware Upload")
-        self.setModal(True)
-        self.setMinimumWidth(520)
-
-        layout = QVBoxLayout(self)
-        layout.setSpacing(14)
-
-        title = QLabel("Ready to upload Rite-Hite Connect test firmware")
-        title.setObjectName("sectionTitle")
-        layout.addWidget(title)
-
-        intro = QLabel(
-            "Review the detected board and upload port below. Click Upload to send the test firmware to the Rite-Hite Connect module."
-        )
-        intro.setWordWrap(True)
-        layout.addWidget(intro)
-
-        details_box = QFrame()
-        details_box.setObjectName("uploadConfirmBox")
-        details_layout = QVBoxLayout(details_box)
-        details_layout.setContentsMargins(14, 12, 14, 12)
-        details_layout.setSpacing(8)
-
-        details = [
-            f"Board: {config.board_name}",
-            f"Firmware bundle: {config.firmware_dir.name}",
-            f"Primary upload port: {choice.upload_port}",
-            f"Detected pair: {' / '.join(choice.pair_ports)}" if choice.is_pair else f"Manual port: {choice.upload_port}",
-            (
-                "If the selected paired port does not respond, the app will automatically retry the alternate programmer port."
-                if choice.is_pair
-                else "Manual upload mode: the app will use only this selected port."
-            ),
-        ]
-        for line in details:
-            label = QLabel(line)
-            label.setWordWrap(True)
-            details_layout.addWidget(label)
-
-        layout.addWidget(details_box)
-
-        note = QLabel("If this matches your programmer connection, click Upload. Otherwise click Cancel.")
-        note.setWordWrap(True)
-        layout.addWidget(note)
-
-        buttons = QDialogButtonBox()
-        upload_button = buttons.addButton("Upload", QDialogButtonBox.AcceptRole)
-        cancel_button = buttons.addButton("Cancel", QDialogButtonBox.RejectRole)
-        upload_button.setObjectName("primaryExportButton")
-        cancel_button.setObjectName("utilityButton")
-        buttons.accepted.connect(self.accept)
-        buttons.rejected.connect(self.reject)
-        layout.addWidget(buttons)
-
-
 class UploadErrorDialog(QDialog):
     def __init__(self, message: str, parent: QWidget | None = None) -> None:
         super().__init__(parent)
@@ -385,19 +327,6 @@ class SettingsDialog(QDialog):
         self.dark_mode_check = QCheckBox(tr("settings_dark_mode"))
         self.dark_mode_check.setChecked(self._settings.get("dark_mode", False))
         body_layout.addWidget(self.dark_mode_check)
-
-        font_row = QHBoxLayout()
-        font_row.setSpacing(10)
-        font_label = QLabel(tr("settings_font_size"))
-        font_label.setStyleSheet("font-size: 13px; font-weight: 600; color: #1a1a1a;")
-        font_row.addWidget(font_label)
-        self.font_size_combo = QComboBox()
-        self.font_size_combo.addItems(["Small", "Medium", "Large"])
-        self.font_size_combo.setCurrentText(self._settings.get("font_size", "Medium"))
-        self.font_size_combo.setFixedWidth(120)
-        font_row.addWidget(self.font_size_combo)
-        font_row.addStretch(1)
-        body_layout.addLayout(font_row)
 
         body_layout.addSpacing(4)
         body_layout.addWidget(self._build_section_label(tr("settings_language_section")))
@@ -557,7 +486,7 @@ class SettingsDialog(QDialog):
 
     def _on_save(self) -> None:
         self._settings["dark_mode"] = self.dark_mode_check.isChecked()
-        self._settings["font_size"] = self.font_size_combo.currentText()
+        self._settings.pop("font_size", None)
         self._settings["language"] = self.language_combo.currentText()
         self._settings["confirm_before_extract"] = self.confirm_extract_check.isChecked()
         self._settings["auto_refresh_on_tab_switch"] = self.auto_refresh_check.isChecked()
@@ -1356,9 +1285,10 @@ class ExportAppWindow(QMainWindow):
             "oct_step_leds",
             "oct_step_extract",
         ]
+        self._oct_upload_label_state = "default"
 
         self._oct_step_progress = StepProgressBar()
-        self._oct_step_progress.set_steps([tr(k) for k in self._oct_step_keys])
+        self._oct_step_progress.set_steps(self._oct_step_labels())
         self._oct_step_progress.set_reduced_motion(
             bool(self._app_settings.get("reduced_motion", False))
         )
@@ -1452,6 +1382,8 @@ class ExportAppWindow(QMainWindow):
         self._oct_reset_stepper()
         self._set_one_click_busy(True)
         self.log_drawer.clear()
+        self._set_oct_upload_label_state("uploading")
+        self._expand_activity_log_for_upload()
 
         worker = OneClickWorker(config, discovery.auto_choice, fixture_port)
         thread = QThread(self)
@@ -1471,9 +1403,14 @@ class ExportAppWindow(QMainWindow):
         thread.start()
 
     def _oct_reset_stepper(self) -> None:
+        self._set_oct_upload_label_state("default")
         self._oct_step_progress.reset()
 
     def _oct_on_stage_changed(self, stage_idx: int, message: str) -> None:
+        if stage_idx <= OCT_STEP_INDEX_UPLOAD:
+            self._set_oct_upload_label_state("uploading")
+        else:
+            self._set_oct_upload_label_state("uploaded")
         self._oct_step_progress.set_active(stage_idx)
         _ = message
 
@@ -1481,6 +1418,7 @@ class ExportAppWindow(QMainWindow):
         self.append_status_message(msg)
 
     def _oct_on_success(self, msg: str) -> None:
+        self._set_oct_upload_label_state("uploaded")
         self._oct_step_progress.mark_all_done()
         self.append_status_message(msg, severity="success")
         self._show_flash_banner(msg, success=True)
@@ -1495,6 +1433,7 @@ class ExportAppWindow(QMainWindow):
             else:
                 step_idx = OCT_STEP_INDEX_UPLOAD
 
+        self._set_oct_upload_label_state("uploading" if step_idx <= OCT_STEP_INDEX_UPLOAD else "uploaded")
         self._oct_step_progress.mark_failed(step_idx)
         self.append_status_message(msg, severity="error")
         self._show_flash_banner(msg, success=False)
@@ -1651,6 +1590,7 @@ class ExportAppWindow(QMainWindow):
                 self.set_status_message(tr("upload_cancelled"))
                 return
 
+            self._expand_activity_log_for_upload()
             detected_ports = " / ".join(selection.pair_ports)
             if selection.is_pair:
                 self.set_status_message(
@@ -1685,8 +1625,29 @@ class ExportAppWindow(QMainWindow):
         return None
 
     def confirm_upload_choice(self, config: Esp32UploadConfig, choice: Esp32UploadChoice) -> bool:
-        dialog = UploadConfirmDialog(config, choice, self)
-        return dialog.exec() == QDialog.Accepted
+        details = [
+            "Upload the Rite-Hite Connect test firmware now?",
+            "",
+            f"Board: {config.board_name}",
+            f"Firmware bundle: {config.firmware_dir.name}",
+            f"Upload port: {choice.upload_port}",
+        ]
+        if choice.is_pair:
+            details.append(f"Detected programmer pair: {' / '.join(choice.pair_ports)}")
+            details.append(
+                "If the first port does not respond, the app will retry the alternate programmer port automatically."
+            )
+        else:
+            details.append("Manual upload mode: only the selected port will be used.")
+
+        reply = QMessageBox.question(
+            self,
+            "Confirm Rite-Hite Connect Test Firmware Upload",
+            "\n".join(details),
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.Cancel,
+            QMessageBox.StandardButton.Yes,
+        )
+        return reply == QMessageBox.StandardButton.Yes
 
     def show_upload_error_dialog(self, message: str) -> None:
         dialog = UploadErrorDialog(message, self)
@@ -1695,6 +1656,7 @@ class ExportAppWindow(QMainWindow):
     def start_upload_worker(self, config: Esp32UploadConfig, selection: Esp32UploadChoice) -> None:
         self.upload_test_button.setEnabled(False)
         self._last_upload_choice = selection
+        self._expand_activity_log_for_upload()
         self._show_progress()
 
         self.upload_thread = QThread(self)
@@ -2069,7 +2031,6 @@ class ExportAppWindow(QMainWindow):
             self._apply_dark_styles()
         else:
             self._apply_styles()
-        self._apply_font_size(self._app_settings.get("font_size", "Medium"))
         reduced = bool(self._app_settings.get("reduced_motion", False))
         if hasattr(self, "sidebar"):
             self.sidebar.set_reduced_motion(reduced)
@@ -2077,15 +2038,6 @@ class ExportAppWindow(QMainWindow):
             self.log_drawer.set_reduced_motion(reduced)
         if hasattr(self, "_oct_step_progress"):
             self._oct_step_progress.set_reduced_motion(reduced)
-
-    def _apply_font_size(self, size_name: str) -> None:
-        sizes = {"Small": 12, "Medium": 14, "Large": 16}
-        px = sizes.get(size_name, 14)
-        root = self.centralWidget()
-        if root is not None:
-            font = root.font()
-            font.setPointSize(px)
-            root.setFont(font)
 
     def _retranslate_ui(self) -> None:
         self.setWindowTitle(tr("app_title"))
@@ -2144,7 +2096,7 @@ class ExportAppWindow(QMainWindow):
         self._oct_subtitle.setText(tr("oct_subtitle"))
         self.oct_start_btn.setText(tr("oct_start_btn"))
         self.oct_start_btn.setToolTip(tr("oct_start_tooltip"))
-        self._oct_step_progress.set_labels([tr(key) for key in self._oct_step_keys])
+        self._oct_step_progress.set_labels(self._oct_step_labels())
 
         self.refresh_history()
         self._update_last_operation_ui()
@@ -2153,6 +2105,24 @@ class ExportAppWindow(QMainWindow):
             self._refresh_connection_status()
         elif idx == PAGE_INDEX_ONE_CLICK:
             self._refresh_oct_connection()
+
+    def _expand_activity_log_for_upload(self) -> None:
+        if not self.log_drawer.is_expanded():
+            self.log_drawer.set_expanded(True)
+
+    def _oct_step_labels(self) -> list[str]:
+        upload_label_key = {
+            "default": "oct_step_upload",
+            "uploading": "oct_step_uploading_label",
+            "uploaded": "oct_step_uploaded",
+        }.get(self._oct_upload_label_state, "oct_step_upload")
+        return [tr(upload_label_key), *[tr(key) for key in self._oct_step_keys[1:]]]
+
+    def _set_oct_upload_label_state(self, state: str) -> None:
+        if self._oct_upload_label_state == state:
+            return
+        self._oct_upload_label_state = state
+        self._oct_step_progress.set_labels(self._oct_step_labels())
 
 def main() -> int:
     app = QApplication(sys.argv)

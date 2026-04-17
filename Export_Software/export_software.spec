@@ -42,7 +42,7 @@ exe = EXE(
     a.scripts,
     [],
     exclude_binaries=True,
-    name="EOL Export Software",
+    name="EOL_Export_Software",
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,

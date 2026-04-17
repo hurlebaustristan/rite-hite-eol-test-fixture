@@ -69,7 +69,6 @@ def save_all_settings(settings: dict) -> None:
 DEFAULT_SETTINGS: dict = {
     "dark_mode": False,
     "language": "English",
-    "font_size": "Medium",
     "confirm_before_extract": True,
     "auto_refresh_on_tab_switch": True,
     "reduced_motion": False,

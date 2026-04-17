@@ -3,6 +3,7 @@ from __future__ import annotations
 import shlex
 import shutil
 import subprocess
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable
@@ -266,14 +267,24 @@ def _read_flash_args(firmware_dir: Path) -> tuple[list[str], list[str]]:
 
 
 def _run_command(command: list[str], log_callback: Callable[[str], None], stage_name: str) -> None:
+    popen_kwargs: dict[str, object] = {
+        "stdout": subprocess.PIPE,
+        "stderr": subprocess.STDOUT,
+        "text": True,
+        "encoding": "utf-8",
+        "errors": "replace",
+        "bufsize": 1,
+    }
+    if sys.platform == "win32":
+        startupinfo = subprocess.STARTUPINFO()
+        startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+        startupinfo.wShowWindow = subprocess.SW_HIDE
+        popen_kwargs["startupinfo"] = startupinfo
+        popen_kwargs["creationflags"] = subprocess.CREATE_NO_WINDOW
+
     process = subprocess.Popen(
         command,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-        text=True,
-        encoding="utf-8",
-        errors="replace",
-        bufsize=1,
+        **popen_kwargs,
     )
     try:
         if process.stdout is not None:

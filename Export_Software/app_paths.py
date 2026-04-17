@@ -6,7 +6,8 @@ from pathlib import Path
 
 
 COMPANY_DIR = "Rite-Hite"
-APP_DIR = "EOL Export Software"
+APP_DIR = "EOL_Export_Software"
+LEGACY_APP_DIR = "EOL Export Software"
 
 
 def is_frozen() -> bool:
@@ -31,6 +32,15 @@ def get_data_dir() -> Path:
 
     local_appdata = os.environ.get("LOCALAPPDATA")
     if local_appdata:
-        return Path(local_appdata) / COMPANY_DIR / APP_DIR
+        company_dir = Path(local_appdata) / COMPANY_DIR
+        data_dir = company_dir / APP_DIR
+        legacy_data_dir = company_dir / LEGACY_APP_DIR
+        if legacy_data_dir.exists() and not data_dir.exists():
+            try:
+                company_dir.mkdir(parents=True, exist_ok=True)
+                legacy_data_dir.rename(data_dir)
+            except OSError:
+                pass
+        return data_dir
 
     return get_app_dir()

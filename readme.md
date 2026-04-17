@@ -36,7 +36,7 @@ https://github.com/hurlebaustristan/rite-hite-eol-test-fixture/releases/latest
 Download the installer asset named:
 
 ```text
-EOL_Export_Software_Setup_2026.4.17.2.exe
+EOL_Export_Software_Setup_2026.4.17.3.exe
 ```
 
 ### Fastest Install Path
@@ -44,19 +44,19 @@ EOL_Export_Software_Setup_2026.4.17.2.exe
 1. Get the installer file named:
 
 ```text
-EOL_Export_Software_Setup_2026.4.17.2.exe
+EOL_Export_Software_Setup_2026.4.17.3.exe
 ```
 
 2. If you built the project locally, the installer is created here:
 
 ```text
-C:\TouchGFXProjects\EOL_TestFixture_Final\Export_Software\dist\installer\EOL_Export_Software_Setup_2026.4.17.2.exe
+C:\TouchGFXProjects\EOL_TestFixture_Final\Export_Software\dist\installer\EOL_Export_Software_Setup_2026.4.17.3.exe
 ```
 
 3. Double-click the installer.
 4. Keep the default install location unless your IT policy requires a different user-local path.
 5. Leave the main application component checked. Leave documentation checked if you want the bundled Word manuals installed too.
-6. Finish the installer, then launch `EOL Export Software` from the Start Menu or the optional desktop shortcut.
+6. Finish the installer, then launch `EOL_Export_Software` from the Start Menu or the optional desktop shortcut.
 7. Connect the fixture USB and programmer USB, then use the app normally.
 
 ### Installed App Location
@@ -64,13 +64,13 @@ C:\TouchGFXProjects\EOL_TestFixture_Final\Export_Software\dist\installer\EOL_Exp
 By default, the installer places the application here:
 
 ```text
-%LOCALAPPDATA%\Programs\Rite-Hite\EOL Export Software
+%LOCALAPPDATA%\Programs\Rite-Hite\EOL_Export_Software
 ```
 
 The main executable will be:
 
 ```text
-%LOCALAPPDATA%\Programs\Rite-Hite\EOL Export Software\EOL Export Software.exe
+%LOCALAPPDATA%\Programs\Rite-Hite\EOL_Export_Software\EOL_Export_Software.exe
 ```
 
 ### Runtime Data Location
@@ -78,8 +78,10 @@ The main executable will be:
 Installed builds write user data here:
 
 ```text
-%LOCALAPPDATA%\Rite-Hite\EOL Export Software
+%LOCALAPPDATA%\Rite-Hite\EOL_Export_Software
 ```
+
+If you are upgrading from an older install, the app will try to move the legacy runtime-data folder with spaces into the new underscore-based folder on first launch.
 
 That folder is where you will find:
 
@@ -130,7 +132,7 @@ cmd /c Export_Software\build_installer.bat
 After the build finishes, the installer will be here:
 
 ```text
-Export_Software\dist\installer\EOL_Export_Software_Setup_2026.4.17.2.exe
+Export_Software\dist\installer\EOL_Export_Software_Setup_2026.4.17.3.exe
 ```
 
 The unpacked packaged app folder will be here:

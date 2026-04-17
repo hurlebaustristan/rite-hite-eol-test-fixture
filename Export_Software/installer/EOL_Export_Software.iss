@@ -1,10 +1,11 @@
 #ifndef MyAppVersion
-  #define MyAppVersion "2026.4.17.2"
+  #define MyAppVersion "2026.4.17.3"
 #endif
 
 #define MyAppName "EOL Export Software"
+#define MyAppFileName "EOL_Export_Software"
 #define MyAppPublisher "Rite-Hite"
-#define MyAppExeName "EOL Export Software.exe"
+#define MyAppExeName "EOL_Export_Software.exe"
 #define MyAppId "{{8C75F699-3D02-4E4F-B3B8-D8E3CFB4B4A8}"
 #define MyAppDir "..\\dist\\EOL_Export_Software"
 #define MyDocsDir "..\\..\\Docs\\Word"
@@ -16,8 +17,8 @@ AppId={#MyAppId}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppPublisher={#MyAppPublisher}
-DefaultDirName={localappdata}\Programs\Rite-Hite\{#MyAppName}
-DefaultGroupName=Rite-Hite\{#MyAppName}
+DefaultDirName={localappdata}\Programs\Rite-Hite\{#MyAppFileName}
+DefaultGroupName=Rite-Hite\{#MyAppFileName}
 DisableProgramGroupPage=yes
 ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
@@ -54,11 +55,11 @@ Source: "{#MyAppDir}\\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs 
 Source: "{#MyDocsDir}\\*.docx"; DestDir: "{app}\Documentation"; Flags: ignoreversion; Components: docs
 
 [Icons]
-Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Components: main
+Name: "{group}\{#MyAppFileName}"; Filename: "{app}\{#MyAppExeName}"; Components: main
 Name: "{group}\Uninstall {#MyAppName}"; Filename: "{uninstallexe}"; Components: main
 Name: "{group}\EOL Test Fixture User Manual"; Filename: "{app}\Documentation\user_manual.docx"; Components: docs
 Name: "{group}\Documentation Folder"; Filename: "{app}\Documentation"; Components: docs
-Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon; Components: main
+Name: "{autodesktop}\{#MyAppFileName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon; Components: main
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "Launch {#MyAppName}"; Flags: nowait postinstall skipifsilent; Components: main
