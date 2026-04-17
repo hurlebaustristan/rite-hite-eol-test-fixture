@@ -230,7 +230,7 @@ class UploadConfirmDialog(QDialog):
 
         details = [
             f"Board: {config.board_name}",
-            f"Sketch: {config.sketch_name}",
+            f"Firmware bundle: {config.firmware_dir.name}",
             f"Upload port: {choice.upload_port}",
             f"Detected pair: {' / '.join(choice.pair_ports)}" if choice.is_pair else f"Manual port: {choice.upload_port}",
             "Rule: the upload port is the lower COM port in the programmer pair.",
@@ -597,7 +597,7 @@ class OneClickWorker(QObject):
     stage_changed = Signal(int, str)
     log_message = Signal(str)
     succeeded = Signal(str)
-    failed = Signal(str)
+    failed = Signal(int, str)
     finished = Signal()
 
     def __init__(
@@ -676,26 +676,48 @@ class OneClickWorker(QObject):
                 if status.state in ("READY", "EXPORTED"):
                     break
                 if status.state not in ("RUNNING", "EMPTY", "WAITING_VISUAL"):
-                    self.failed.emit(tr("oct_unexpected_state", state=status.state))
+                    self.failed.emit(active_step_index, tr("oct_unexpected_state", state=status.state))
                     return
             else:
-                self.failed.emit(tr("oct_timeout"))
+                self.failed.emit(active_step_index, tr("oct_timeout"))
                 return
 
             if status is None or status.state not in ("READY", "EXPORTED"):
-                self.failed.emit(tr("oct_unexpected_state", state=status.state if status else "None"))
+                self.failed.emit(
+                    active_step_index,
+                    tr("oct_unexpected_state", state=status.state if status else "None"),
+                )
                 return
 
-            active_step_index = self._advance_stepper(active_step_index, OCT_STEP_INDEX_EXTRACT, time.sleep)
+            failure_step_index = active_step_index
+            if status.outcome == "PASS":
+                active_step_index = self._advance_stepper(
+                    active_step_index, OCT_STEP_INDEX_EXTRACT, time.sleep
+                )
             self.log_message.emit(tr("oct_stage_extracting"))
             export_run = self._client.export_latest_run(self._fixture_port)
             saved_path = write_export_csv(export_run)
             save_last_successful_export(saved_path, self._fixture_port)
-            self.log_message.emit(tr("export_saved", seq=export_run.run_sequence, outcome=export_run.outcome, name=saved_path.name))
+            self.log_message.emit(
+                tr(
+                    "export_saved",
+                    seq=export_run.run_sequence,
+                    outcome=export_run.outcome,
+                    name=saved_path.name,
+                )
+            )
 
-            self.succeeded.emit(tr("oct_complete", outcome=export_run.outcome, name=saved_path.name))
+            if export_run.outcome == "PASS":
+                self.succeeded.emit(
+                    tr("oct_complete", outcome=export_run.outcome, name=saved_path.name)
+                )
+            else:
+                self.failed.emit(
+                    failure_step_index,
+                    tr("oct_failed_complete", outcome=export_run.outcome, name=saved_path.name),
+                )
         except Exception as exc:
-            self.failed.emit(str(exc))
+            self.failed.emit(active_step_index, str(exc))
         finally:
             self.finished.emit()
 
@@ -1405,8 +1427,8 @@ class ExportAppWindow(QMainWindow):
 
         discovery = discover_upload_targets()
         if discovery.auto_choice is None:
-            reasons = "\n".join(f"  \u2022 {r}" for r in discovery.failure_reasons)
-            QMessageBox.critical(self, tr("oct_title"), tr("oct_no_esp") + "\n" + reasons)
+            extra_reason = f"\n  \u2022 {discovery.reason}" if discovery.reason else ""
+            QMessageBox.critical(self, tr("oct_title"), tr("oct_no_esp") + extra_reason)
             return
 
         try:
@@ -1459,16 +1481,16 @@ class ExportAppWindow(QMainWindow):
         self._show_flash_banner(msg, success=True)
         self.refresh_history()
 
-    def _oct_on_failure(self, msg: str) -> None:
-        current = self._oct_step_progress.state_at(
-            max(0, self.pages.currentIndex())
-        )
-        for i in range(len(self._oct_step_keys)):
-            if self._oct_step_progress.state_at(i) == StepState.ACTIVE:
-                self._oct_step_progress.mark_failed(i)
-                break
-        else:
-            _ = current
+    def _oct_on_failure(self, step_idx: int, msg: str) -> None:
+        if not (0 <= step_idx < len(self._oct_step_keys)):
+            for i in range(len(self._oct_step_keys)):
+                if self._oct_step_progress.state_at(i) == StepState.ACTIVE:
+                    step_idx = i
+                    break
+            else:
+                step_idx = OCT_STEP_INDEX_UPLOAD
+
+        self._oct_step_progress.mark_failed(step_idx)
         self.append_status_message(msg, severity="error")
         self._show_flash_banner(msg, success=False)
 

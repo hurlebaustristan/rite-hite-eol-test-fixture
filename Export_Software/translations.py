@@ -746,6 +746,11 @@ STRINGS: dict[str, dict[str, str]] = {
         "Spanish": "Prueba con Un Clic completada — {outcome}. Guardado en {name}.",
         "Hmong": "Kev Sim Ib Nyem tiav — {outcome}. Khaws rau {name}.",
     },
+    "oct_failed_complete": {
+        "English": "One Click Test failed - {outcome}. Saved to {name}.",
+        "Spanish": "La Prueba con Un Clic fallo - {outcome}. Guardado en {name}.",
+        "Hmong": "Kev Sim Ib Nyem poob lawm - {outcome}. Khaws rau {name}.",
+    },
     "oct_upload_busy": {
         "English": "A firmware upload is already in progress. Please wait for it to finish.",
         "Spanish": "Ya hay una carga de firmware en progreso. Espere a que termine.",

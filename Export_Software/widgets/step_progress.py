@@ -104,11 +104,14 @@ class StepProgressBar(QWidget):
         self._maybe_toggle_pulse()
         self.update()
 
-    def mark_failed(self, index: int) -> None:
+    def set_state(self, index: int, state: StepState) -> None:
         if 0 <= index < len(self._states):
-            self._states[index] = StepState.FAILED
-        self._maybe_toggle_pulse()
-        self.update()
+            self._states[index] = state
+            self._maybe_toggle_pulse()
+            self.update()
+
+    def mark_failed(self, index: int) -> None:
+        self.set_state(index, StepState.FAILED)
 
     def state_at(self, index: int) -> StepState:
         if 0 <= index < len(self._states):
