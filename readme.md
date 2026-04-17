@@ -23,6 +23,57 @@ This repository contains:
 
 For a normal laptop or test station, the recommended install path is the Windows installer for the desktop app.
 
+Use the installer, not the raw `dist\EOL_Export_Software\` folder, unless you are specifically debugging packaging.
+
+### Fastest Install Path
+
+1. Get the installer file named:
+
+```text
+EOL_Export_Software_Setup_2026.4.17.exe
+```
+
+2. If you built the project locally, the installer is created here:
+
+```text
+C:\TouchGFXProjects\EOL_TestFixture_Final\Export_Software\dist\installer\EOL_Export_Software_Setup_2026.4.17.exe
+```
+
+3. Double-click the installer.
+4. Keep the default install location unless your IT policy requires a different user-local path.
+5. Leave the main application component checked. Leave documentation checked if you want the bundled Word manuals installed too.
+6. Finish the installer, then launch `EOL Export Software` from the Start Menu or the optional desktop shortcut.
+7. Connect the fixture USB and programmer USB, then use the app normally.
+
+### Installed App Location
+
+By default, the installer places the application here:
+
+```text
+%LOCALAPPDATA%\Programs\Rite-Hite\EOL Export Software
+```
+
+The main executable will be:
+
+```text
+%LOCALAPPDATA%\Programs\Rite-Hite\EOL Export Software\EOL Export Software.exe
+```
+
+### Runtime Data Location
+
+Installed builds write user data here:
+
+```text
+%LOCALAPPDATA%\Rite-Hite\EOL Export Software
+```
+
+That folder is where you will find:
+
+- `exports\` for saved CSV files
+- `settings.json`
+- `last_successful_operation.json`
+- other writable runtime state created by the app
+
 What the installer includes:
 
 - the packaged `EOL Export Software` desktop application
@@ -35,18 +86,6 @@ What it does not install:
 - USB drivers, if the laptop does not already recognize the fixture/programmer COM ports
 - Microsoft Word, if you want to open the bundled `.docx` files directly
 - the embedded STM32 firmware itself onto the fixture hardware
-
-Runtime data for an installed build is stored per user under:
-
-```text
-%LOCALAPPDATA%\Rite-Hite\EOL Export Software
-```
-
-That folder holds:
-
-- `exports\`
-- `settings.json`
-- `last_successful_operation.json`
 
 ## Build The Desktop Installer
 
@@ -74,17 +113,19 @@ cd C:\TouchGFXProjects\EOL_TestFixture_Final
 cmd /c Export_Software\build_installer.bat
 ```
 
-Installer output:
+After the build finishes, the installer will be here:
 
 ```text
-Export_Software\dist\installer\
+Export_Software\dist\installer\EOL_Export_Software_Setup_2026.4.17.exe
 ```
 
-Packaged app output:
+The unpacked packaged app folder will be here:
 
 ```text
 Export_Software\dist\EOL_Export_Software\
 ```
+
+If you only need to hand the software to an operator, give them the installer `.exe`, not the unpacked folder.
 
 ## Developer Run From Source
 

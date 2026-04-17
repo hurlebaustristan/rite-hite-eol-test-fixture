@@ -46,4 +46,5 @@ if errorlevel 1 (
 echo.
 echo Installer build complete.
 echo Output folder: %~dp0dist\installer
+echo Installer file: %~dp0dist\installer\EOL_Export_Software_Setup_%APP_VERSION%.exe
 endlocal

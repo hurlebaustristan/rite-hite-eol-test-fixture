@@ -10,6 +10,33 @@ Desktop software for the Rite-Hite EOL test fixture. This application handles:
 
 For operators and test stations, use the packaged Windows installer rather than running from source.
 
+### Exact Installer File
+
+Current installer build:
+
+```text
+Export_Software\dist\installer\EOL_Export_Software_Setup_2026.4.17.exe
+```
+
+If you are already inside this repository on Windows, the full path is:
+
+```text
+C:\TouchGFXProjects\EOL_TestFixture_Final\Export_Software\dist\installer\EOL_Export_Software_Setup_2026.4.17.exe
+```
+
+### How To Install
+
+1. Double-click `EOL_Export_Software_Setup_2026.4.17.exe`.
+2. Accept the installer prompts.
+3. Keep the default install folder unless you have a local policy that says otherwise.
+4. Leave the main application component enabled.
+5. Optionally leave the documentation component enabled if you want the Word manuals copied into the install.
+6. Finish the install and launch the app from the Start Menu shortcut `Rite-Hite > EOL Export Software` or the optional desktop shortcut.
+
+### What To Hand To Another User
+
+If you are distributing this software to an operator or another engineer, send them the installer `.exe` above. Do not send the raw `dist\EOL_Export_Software\` folder unless they specifically need the unpacked build for debugging or packaging work.
+
 Build the installer from the repository root:
 
 ```powershell
@@ -17,10 +44,10 @@ cd C:\TouchGFXProjects\EOL_TestFixture_Final
 cmd /c Export_Software\build_installer.bat
 ```
 
-Installer output:
+After the build completes, the installer will be here:
 
 ```text
-Export_Software\dist\installer\
+Export_Software\dist\installer\EOL_Export_Software_Setup_2026.4.17.exe
 ```
 
 The installer includes:
@@ -36,6 +63,8 @@ Installed builds store writable runtime data in:
 ```text
 %LOCALAPPDATA%\Rite-Hite\EOL Export Software
 ```
+
+That is also the first place to check for generated CSV exports and saved runtime state on an installed machine.
 
 ## Run From Source
 
