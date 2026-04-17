@@ -1,0 +1,69 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vs/
+.vscode/
+*.code-workspace
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+
+# Local env / secrets
+.env
+.env.*
+
+# STM32CubeMX
+.mxproject
+backup_*.ioc
+
+# Firmware / TouchGFX build outputs
+TouchGFX/*_backup.touchgfx
+TouchGFX/build/
+TouchGFX/generated/videos/bin/
+TouchGFX/generated/videos/obj/
+STM32CubeIDE/.settings/
+STM32CubeIDE/Debug/
+STM32CubeIDE/Release/
+EWARM/settings/
+EWARM/STM32*/
+EWARM/*.dep
+EWARM/*.ewt
+EWARM/*.ipcf
+EWARM/*.custom_argvars
+MDK-ARM/RTE/
+MDK-ARM/STM32*/
+MDK-ARM/DebugConfig/
+MDK-ARM/*.lst
+MDK-ARM/*.out
+MDK-ARM/*vguix.*
+
+# Generic build artifacts
+build/
+cmake-build-*/
+*.o
+*.obj
+*.d
+*.dep
+
+# Desktop app outputs / runtime state
+Export_Software/build/
+Export_Software/dist/
+Export_Software/exports/
+Export_Software/__pycache__/
+Export_Software/.pytest_cache/
+Export_Software/.mypy_cache/
+Export_Software/last_successful_operation.json
+Export_Software/settings.json
+ArduinoIDE/EOL_RiteHite_Final/build/
+
+# Logs
+*.log

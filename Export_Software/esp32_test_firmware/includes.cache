@@ -1,0 +1,178 @@
+[
+  {
+    "added_include_path": "C:\\Users\\hurlebaust\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.7\\cores\\esp32"
+  },
+  {
+    "added_include_path": "C:\\Users\\hurlebaust\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.7\\variants\\esp32s3"
+  },
+  {
+    "compile": {
+      "source_path": "C:\\TouchGFXProjects\\EOL_TestFixture_Final\\Export_Software\\esp32_test_firmware\\sketch\\EOL_RiteHite_Final.ino.cpp",
+      "object_path": "C:\\TouchGFXProjects\\EOL_TestFixture_Final\\Export_Software\\esp32_test_firmware\\sketch\\EOL_RiteHite_Final.ino.cpp.o",
+      "depfile_path": "C:\\TouchGFXProjects\\EOL_TestFixture_Final\\Export_Software\\esp32_test_firmware\\sketch\\EOL_RiteHite_Final.ino.cpp.d"
+    },
+    "compile_task": {
+      "args": [
+        "C:\\Users\\hurlebaust\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp-x32\\2511/bin/xtensa-esp32s3-elf-g++",
+        "-c",
+        "@C:\\Users\\hurlebaust\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32s3-libs\\3.3.7/flags/cpp_flags",
+        "-w",
+        "-Os",
+        "-Werror=return-type",
+        "-w",
+        "-x",
+        "c++",
+        "-E",
+        "-CC",
+        "-DF_CPU=240000000L",
+        "-DARDUINO=10607",
+        "-DARDUINO_ESP32S3_DEV",
+        "-DARDUINO_ARCH_ESP32",
+        "-DARDUINO_BOARD=\"ESP32S3_DEV\"",
+        "-DARDUINO_VARIANT=\"esp32s3\"",
+        "-DARDUINO_PARTITION_default",
+        "-DARDUINO_HOST_OS=\"windows\"",
+        "-DARDUINO_FQBN=\"esp32:esp32:esp32s3\"",
+        "-DESP32=ESP32",
+        "-DCORE_DEBUG_LEVEL=0",
+        "-DARDUINO_RUNNING_CORE=1",
+        "-DARDUINO_EVENT_RUNNING_CORE=1",
+        "-DARDUINO_USB_MODE=1",
+        "-DARDUINO_USB_CDC_ON_BOOT=0",
+        "-DARDUINO_USB_MSC_ON_BOOT=0",
+        "-DARDUINO_USB_DFU_ON_BOOT=0",
+        "@C:\\Users\\hurlebaust\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32s3-libs\\3.3.7/flags/defines",
+        "-IC:\\TouchGFXProjects\\EOL_TestFixture_Final\\ArduinoIDE\\EOL_RiteHite_Final",
+        "-iprefix",
+        "C:\\Users\\hurlebaust\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32s3-libs\\3.3.7/include/",
+        "@C:\\Users\\hurlebaust\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32s3-libs\\3.3.7/flags/includes",
+        "-IC:\\Users\\hurlebaust\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32s3-libs\\3.3.7/qio_qspi/include",
+        "-IC:\\Users\\hurlebaust\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.7\\cores\\esp32",
+        "-IC:\\Users\\hurlebaust\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.7\\variants\\esp32s3",
+        "@C:\\TouchGFXProjects\\EOL_TestFixture_Final\\Export_Software\\esp32_test_firmware/build_opt.h",
+        "@C:\\TouchGFXProjects\\EOL_TestFixture_Final\\Export_Software\\esp32_test_firmware/file_opts",
+        "C:\\TouchGFXProjects\\EOL_TestFixture_Final\\Export_Software\\esp32_test_firmware\\sketch\\EOL_RiteHite_Final.ino.cpp",
+        "-o",
+        "nul"
+      ]
+    }
+  },
+  {
+    "missing_include_h": "Wire.h"
+  },
+  {
+    "added_include_path": "C:\\Users\\hurlebaust\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.7\\libraries\\Wire\\src"
+  },
+  {
+    "compile": {
+      "source_path": "C:\\TouchGFXProjects\\EOL_TestFixture_Final\\Export_Software\\esp32_test_firmware\\sketch\\EOL_RiteHite_Final.ino.cpp",
+      "object_path": "C:\\TouchGFXProjects\\EOL_TestFixture_Final\\Export_Software\\esp32_test_firmware\\sketch\\EOL_RiteHite_Final.ino.cpp.o",
+      "depfile_path": "C:\\TouchGFXProjects\\EOL_TestFixture_Final\\Export_Software\\esp32_test_firmware\\sketch\\EOL_RiteHite_Final.ino.cpp.d"
+    },
+    "compile_task": {
+      "args": [
+        "C:\\Users\\hurlebaust\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp-x32\\2511/bin/xtensa-esp32s3-elf-g++",
+        "-c",
+        "@C:\\Users\\hurlebaust\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32s3-libs\\3.3.7/flags/cpp_flags",
+        "-w",
+        "-Os",
+        "-Werror=return-type",
+        "-w",
+        "-x",
+        "c++",
+        "-E",
+        "-CC",
+        "-DF_CPU=240000000L",
+        "-DARDUINO=10607",
+        "-DARDUINO_ESP32S3_DEV",
+        "-DARDUINO_ARCH_ESP32",
+        "-DARDUINO_BOARD=\"ESP32S3_DEV\"",
+        "-DARDUINO_VARIANT=\"esp32s3\"",
+        "-DARDUINO_PARTITION_default",
+        "-DARDUINO_HOST_OS=\"windows\"",
+        "-DARDUINO_FQBN=\"esp32:esp32:esp32s3\"",
+        "-DESP32=ESP32",
+        "-DCORE_DEBUG_LEVEL=0",
+        "-DARDUINO_RUNNING_CORE=1",
+        "-DARDUINO_EVENT_RUNNING_CORE=1",
+        "-DARDUINO_USB_MODE=1",
+        "-DARDUINO_USB_CDC_ON_BOOT=0",
+        "-DARDUINO_USB_MSC_ON_BOOT=0",
+        "-DARDUINO_USB_DFU_ON_BOOT=0",
+        "@C:\\Users\\hurlebaust\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32s3-libs\\3.3.7/flags/defines",
+        "-IC:\\TouchGFXProjects\\EOL_TestFixture_Final\\ArduinoIDE\\EOL_RiteHite_Final",
+        "-iprefix",
+        "C:\\Users\\hurlebaust\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32s3-libs\\3.3.7/include/",
+        "@C:\\Users\\hurlebaust\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32s3-libs\\3.3.7/flags/includes",
+        "-IC:\\Users\\hurlebaust\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32s3-libs\\3.3.7/qio_qspi/include",
+        "-IC:\\Users\\hurlebaust\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.7\\cores\\esp32",
+        "-IC:\\Users\\hurlebaust\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.7\\variants\\esp32s3",
+        "-IC:\\Users\\hurlebaust\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.7\\libraries\\Wire\\src",
+        "@C:\\TouchGFXProjects\\EOL_TestFixture_Final\\Export_Software\\esp32_test_firmware/build_opt.h",
+        "@C:\\TouchGFXProjects\\EOL_TestFixture_Final\\Export_Software\\esp32_test_firmware/file_opts",
+        "C:\\TouchGFXProjects\\EOL_TestFixture_Final\\Export_Software\\esp32_test_firmware\\sketch\\EOL_RiteHite_Final.ino.cpp",
+        "-o",
+        "nul"
+      ]
+    }
+  },
+  {
+    "missing_include_h": ""
+  },
+  {
+    "compile": {
+      "source_path": "C:\\Users\\hurlebaust\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.7\\libraries\\Wire\\src\\Wire.cpp",
+      "object_path": "C:\\TouchGFXProjects\\EOL_TestFixture_Final\\Export_Software\\esp32_test_firmware\\libraries\\Wire\\Wire.cpp.o",
+      "depfile_path": "C:\\TouchGFXProjects\\EOL_TestFixture_Final\\Export_Software\\esp32_test_firmware\\libraries\\Wire\\Wire.cpp.d"
+    },
+    "compile_task": {
+      "args": [
+        "C:\\Users\\hurlebaust\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp-x32\\2511/bin/xtensa-esp32s3-elf-g++",
+        "-c",
+        "@C:\\Users\\hurlebaust\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32s3-libs\\3.3.7/flags/cpp_flags",
+        "-w",
+        "-Os",
+        "-Werror=return-type",
+        "-w",
+        "-x",
+        "c++",
+        "-E",
+        "-CC",
+        "-DF_CPU=240000000L",
+        "-DARDUINO=10607",
+        "-DARDUINO_ESP32S3_DEV",
+        "-DARDUINO_ARCH_ESP32",
+        "-DARDUINO_BOARD=\"ESP32S3_DEV\"",
+        "-DARDUINO_VARIANT=\"esp32s3\"",
+        "-DARDUINO_PARTITION_default",
+        "-DARDUINO_HOST_OS=\"windows\"",
+        "-DARDUINO_FQBN=\"esp32:esp32:esp32s3\"",
+        "-DESP32=ESP32",
+        "-DCORE_DEBUG_LEVEL=0",
+        "-DARDUINO_RUNNING_CORE=1",
+        "-DARDUINO_EVENT_RUNNING_CORE=1",
+        "-DARDUINO_USB_MODE=1",
+        "-DARDUINO_USB_CDC_ON_BOOT=0",
+        "-DARDUINO_USB_MSC_ON_BOOT=0",
+        "-DARDUINO_USB_DFU_ON_BOOT=0",
+        "@C:\\Users\\hurlebaust\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32s3-libs\\3.3.7/flags/defines",
+        "-IC:\\TouchGFXProjects\\EOL_TestFixture_Final\\ArduinoIDE\\EOL_RiteHite_Final",
+        "-iprefix",
+        "C:\\Users\\hurlebaust\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32s3-libs\\3.3.7/include/",
+        "@C:\\Users\\hurlebaust\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32s3-libs\\3.3.7/flags/includes",
+        "-IC:\\Users\\hurlebaust\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32s3-libs\\3.3.7/qio_qspi/include",
+        "-IC:\\Users\\hurlebaust\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.7\\cores\\esp32",
+        "-IC:\\Users\\hurlebaust\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.7\\variants\\esp32s3",
+        "-IC:\\Users\\hurlebaust\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.7\\libraries\\Wire\\src",
+        "@C:\\TouchGFXProjects\\EOL_TestFixture_Final\\Export_Software\\esp32_test_firmware/build_opt.h",
+        "@C:\\TouchGFXProjects\\EOL_TestFixture_Final\\Export_Software\\esp32_test_firmware/file_opts",
+        "C:\\Users\\hurlebaust\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.7\\libraries\\Wire\\src\\Wire.cpp",
+        "-o",
+        "nul"
+      ]
+    }
+  },
+  {
+    "missing_include_h": ""
+  }
+]

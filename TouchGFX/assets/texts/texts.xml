@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextDatabase xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="texts.xsd" Version="4.26.0">
+  <Languages>
+    <Language Id="GB" />
+  </Languages>
+  <Texts>
+    <TextGroup Id="Group1" />
+    <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_7KC5" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">Return to Home Screen</Translation>
+      </Text>
+      <Text Id="__SingleUse_KGDC" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">LED's BAD</Translation>
+      </Text>
+      <Text Id="__SingleUse_E4TX" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">LED's GOOD</Translation>
+      </Text>
+      <Text Id="__SingleUse_VU4A" Alignment="Left" TypographyId="GPIO">
+        <Translation Language="GB">DACEN_PD11</Translation>
+      </Text>
+      <Text Id="__SingleUse_5ZNG" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">K2NO</Translation>
+      </Text>
+      <Text Id="__SingleUse_J4RT" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">K1NC</Translation>
+      </Text>
+      <Text Id="__SingleUse_YSAA" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">DO2</Translation>
+      </Text>
+      <Text Id="__SingleUse_6Q9E" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">DO1</Translation>
+      </Text>
+      <Text Id="__SingleUse_D3TH" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">K2NO</Translation>
+      </Text>
+      <Text Id="__SingleUse_F3C4" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">K1NO</Translation>
+      </Text>
+      <Text Id="__SingleUse_NMQ6" Alignment="Left" TypographyId="GPIO_Small">
+        <Translation Language="GB">FLTBTN_PA8</Translation>
+      </Text>
+      <Text Id="__SingleUse_XUBI" Alignment="Left" TypographyId="GPIO">
+        <Translation Language="GB">DI1_PF5</Translation>
+      </Text>
+      <Text Id="__SingleUse_SPBP" Alignment="Left" TypographyId="GPIO">
+        <Translation Language="GB">DI2_PF3</Translation>
+      </Text>
+      <Text Id="__SingleUse_C6ES" Alignment="Left" TypographyId="GPIO">
+        <Translation Language="GB">DI4_PC12</Translation>
+      </Text>
+      <Text Id="__SingleUse_SJYG" Alignment="Left" TypographyId="GPIO">
+        <Translation Language="GB">DI5_PC11</Translation>
+      </Text>
+      <Text Id="__SingleUse_H8GE" Alignment="Left" TypographyId="GPIO">
+        <Translation Language="GB">DI3_PD2</Translation>
+      </Text>
+      <Text Id="__SingleUse_NLZ3" Alignment="Left" TypographyId="GPIO">
+        <Translation Language="GB">DI6_PC10</Translation>
+      </Text>
+      <Text Id="__SingleUse_SPWS" Alignment="Left" TypographyId="GPIO">
+        <Translation Language="GB">DI7_PC9</Translation>
+      </Text>
+      <Text Id="__SingleUse_A5ZP" Alignment="Left" TypographyId="GPIO">
+        <Translation Language="GB">DI9_PA3</Translation>
+      </Text>
+      <Text Id="__SingleUse_P39Y" Alignment="Left" TypographyId="GPIO">
+        <Translation Language="GB">DI10_PC3</Translation>
+      </Text>
+      <Text Id="__SingleUse_NSNI" Alignment="Left" TypographyId="GPIO">
+        <Translation Language="GB">DI8_PC8</Translation>
+      </Text>
+      <Text Id="__SingleUse_6UNR" Alignment="Left" TypographyId="GPIO">
+        <Translation Language="GB">DI11_PC1</Translation>
+      </Text>
+      <Text Id="__SingleUse_7RB1" Alignment="Left" TypographyId="GPIO">
+        <Translation Language="GB">DI12_PC0</Translation>
+      </Text>
+      <Text Id="__SingleUse_7ZKJ" Alignment="Left" TypographyId="GPIO_Small">
+        <Translation Language="GB">AUX1BTN_PE3</Translation>
+      </Text>
+      <Text Id="__SingleUse_44H4" Alignment="Left" TypographyId="GPIO_Small">
+        <Translation Language="GB">AUX2BTN_PF8</Translation>
+      </Text>
+      <Text Id="__SingleUse_H28D" Alignment="Left" TypographyId="GPIO_Small">
+        <Translation Language="GB">AUX3BTN_PF2</Translation>
+      </Text>
+      <Text Id="__SingleUse_XN8Q" Alignment="Left" TypographyId="GPIO_Small">
+        <Translation Language="GB">USRBTN_PB2</Translation>
+      </Text>
+      <Text Id="__SingleUse_G8Y9" Alignment="Left" TypographyId="GPIO_Small">
+        <Translation Language="GB">MCUBTN_PB11</Translation>
+      </Text>
+      <Text Id="__SingleUse_YCOF" Alignment="Left" TypographyId="GPIO">
+        <Translation Language="GB">DACA0_PB3</Translation>
+      </Text>
+      <Text Id="__SingleUse_CIVJ" Alignment="Left" TypographyId="GPIO">
+        <Translation Language="GB">DACA1_PC6</Translation>
+      </Text>
+      <Text Id="__SingleUse_5OR8" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">DAC_Slider_PA4</Translation>
+      </Text>
+      <Text Id="__SingleUse_1TM3" Alignment="Left" TypographyId="GPIO_Small">
+        <Translation Language="GB">AUX0BTN_PE0</Translation>
+      </Text>
+      <Text Id="__SingleUse_HGA0" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">Begin Automatic Test</Translation>
+      </Text>
+      <Text Id="__SingleUse_RUCM" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">Begin Manual Test</Translation>
+      </Text>
+      <Text Id="__SingleUse_2N97" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">Connected</Translation>
+      </Text>
+      <Text Id="__SingleUse_0JPK" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">Button Pressed</Translation>
+      </Text>
+      <Text Id="__SingleUse_34T2" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">Reconnected</Translation>
+      </Text>
+      <Text Id="__SingleUse_89Q9" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">Button Pressed</Translation>
+      </Text>
+      <Text Id="__SingleUse_B2NA" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">Reconnected</Translation>
+      </Text>
+      <Text Id="__SingleUse_WOOJ" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">Communication</Translation>
+      </Text>
+      <Text Id="__SingleUse_MNJP" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">MCU Reset</Translation>
+      </Text>
+      <Text Id="__SingleUse_MHQO" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">Fault Check</Translation>
+      </Text>
+      <Text Id="__SingleUse_TI3O" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">Digital Inputs</Translation>
+      </Text>
+      <Text Id="__SingleUse_PLOZ" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">Analog Inputs</Translation>
+      </Text>
+      <Text Id="__SingleUse_HNIH" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">Analog Input 1</Translation>
+      </Text>
+      <Text Id="__SingleUse_22VE" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">Analog Input 2</Translation>
+      </Text>
+      <Text Id="__SingleUse_YBCJ" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">Analog Input 3</Translation>
+      </Text>
+      <Text Id="__SingleUse_3TX8" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">Analog Input 4</Translation>
+      </Text>
+      <Text Id="__SingleUse_IXWG" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">Digital Input 1</Translation>
+      </Text>
+      <Text Id="__SingleUse_NPFQ" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">Digital Input 2</Translation>
+      </Text>
+      <Text Id="__SingleUse_8ZGJ" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">Digital Input 3</Translation>
+      </Text>
+      <Text Id="__SingleUse_T9D5" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">Digital Input 4</Translation>
+      </Text>
+      <Text Id="__SingleUse_DOO8" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">Digital Input 5</Translation>
+      </Text>
+      <Text Id="__SingleUse_5JB6" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">Digital Input 6</Translation>
+      </Text>
+      <Text Id="__SingleUse_8LPI" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">Digital Input 7</Translation>
+      </Text>
+      <Text Id="__SingleUse_BNE3" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">Digital Input 8</Translation>
+      </Text>
+      <Text Id="__SingleUse_A587" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">Digital Input 9</Translation>
+      </Text>
+      <Text Id="__SingleUse_0LUO" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">Digital Input 10</Translation>
+      </Text>
+      <Text Id="__SingleUse_APIF" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">Digital Input 11</Translation>
+      </Text>
+      <Text Id="__SingleUse_NS0A" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">Digital Input 12</Translation>
+      </Text>
+      <Text Id="__SingleUse_4ZB6" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">Digital Ouput 1</Translation>
+      </Text>
+      <Text Id="__SingleUse_II8X" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">Digital Ouput 2</Translation>
+      </Text>
+      <Text Id="__SingleUse_SFL4" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">K1 NO</Translation>
+      </Text>
+      <Text Id="__SingleUse_5X3F" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">K1 NC</Translation>
+      </Text>
+      <Text Id="__SingleUse_7FUM" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">K2 NO</Translation>
+      </Text>
+      <Text Id="__SingleUse_DYM7" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">K2 NC</Translation>
+      </Text>
+      <Text Id="__SingleUse_N5XA" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">Digtial Outputs</Translation>
+      </Text>
+      <Text Id="__SingleUse_6MMW" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">Relay Outputs</Translation>
+      </Text>
+      <Text Id="__SingleUse_ZZ5H" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">USR_0 Button</Translation>
+      </Text>
+      <Text Id="__SingleUse_4N5H" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">PNL_0 Button</Translation>
+      </Text>
+      <Text Id="__SingleUse_G2LW" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">PNL_1 Button</Translation>
+      </Text>
+      <Text Id="__SingleUse_63ES" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">PNL_2 Button</Translation>
+      </Text>
+      <Text Id="__SingleUse_FIR1" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">PNL_3 Button</Translation>
+      </Text>
+      <Text Id="__SingleUse_67YN" Alignment="Left" TypographyId="Button">
+        <Translation Language="GB">Buttons</Translation>
+      </Text>
+      <Text Id="__SingleUse_XVP7" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_EP6A" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_Q9K7" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_MK7Z" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_6MYT" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_4IO9" Alignment="Center" TypographyId="Button">
+        <Translation Language="GB">Return to Home Screen</Translation>
+      </Text>
+    </TextGroup>
+  </Texts>
+  <Typographies>
+    <Typography Id="Large" Font="verdana.ttf" Size="40" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="GPIO" Font="calibrib.ttf" Size="10" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="GPIO_Small" Font="calibrib.ttf" Size="8" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Button" Font="calibrib.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 :._-/()#[]" />
+  </Typographies>
+</TextDatabase>

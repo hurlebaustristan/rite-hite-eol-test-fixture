@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="130" viewBox="0 0 480 130" role="img" aria-label="Rite-Hite logo">
+  <rect width="480" height="130" fill="transparent"/>
+  <g transform="translate(10,8)">
+    <text x="0" y="78" font-family="Arial Black, Impact, sans-serif" font-size="82" font-style="italic" font-weight="900" letter-spacing="-3" fill="#1a171b">RITE</text>
+    <text x="225" y="78" font-family="Arial Black, Impact, sans-serif" font-size="82" font-style="italic" font-weight="900" letter-spacing="-3" fill="#ce1141">HITE</text>
+    <text x="443" y="22" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#1a171b">&#xAE;</text>
+    <text x="435" y="110" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-style="italic" font-weight="600" letter-spacing="2.5" fill="#1a171b" text-anchor="end">ALWAYS LOOKING AHEAD</text>
+  </g>
+</svg>

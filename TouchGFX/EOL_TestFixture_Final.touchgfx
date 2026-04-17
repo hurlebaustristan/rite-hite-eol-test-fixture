@@ -1,0 +1,1839 @@
+{
+  "Application": {
+    "Screens": [
+      {
+        "Name": "Start_Screen",
+        "Components": [
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "start_Screen_Container1",
+            "Width": 320,
+            "Height": 480,
+            "CustomContainerDefinitionName": "Start_Screen_Container"
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "Test_GPIO_Screen",
+        "Components": [
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "test_GPIO_Container1",
+            "Width": 320,
+            "Height": 480,
+            "CustomContainerDefinitionName": "Test_GPIO_Container"
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "Comm_Reset_Screen",
+        "Components": [
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "comm_Reset_Screen1",
+            "Width": 320,
+            "Height": 480,
+            "CustomContainerDefinitionName": "Comm_Reset_Screen"
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "Inputs_Screen",
+        "Components": [
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "inputs_Screen1",
+            "Width": 320,
+            "Height": 480,
+            "CustomContainerDefinitionName": "Inputs_Screen"
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "Outputs_Screen",
+        "Components": [
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "outputs_Screen1",
+            "Width": 320,
+            "Height": 480,
+            "CustomContainerDefinitionName": "Outputs_Screen"
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "Buttons_LEDs_Screen",
+        "Components": [
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "buttons_LEDs_Screen1",
+            "Width": 320,
+            "Height": 480,
+            "CustomContainerDefinitionName": "Buttons_LEDs_Screen"
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "Fault_Screen",
+        "Components": [
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "fault_Screen1",
+            "Width": 320,
+            "Height": 480,
+            "CustomContainerDefinitionName": "Fault_Screen"
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "Test_Complete_Screen",
+        "Components": [
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "test_Complete_Screen1",
+            "Width": 320,
+            "Height": 480,
+            "CustomContainerDefinitionName": "Test_Complete_Screen"
+          }
+        ],
+        "Interactions": []
+      }
+    ],
+    "CustomContainerDefinitions": [
+      {
+        "Name": "Test_GPIO_Container",
+        "Width": 320,
+        "Height": 480,
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "Background_image",
+            "Width": 320,
+            "Height": 480,
+            "RelativeFilename": "Clear_White.png"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "DACEN_PD11",
+            "X": 124,
+            "Y": 305,
+            "Width": 62,
+            "Height": 34,
+            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_on_normal.png",
+            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_off_light.png",
+            "Preset": "alternate_theme\\presets\\togglebutton\\small\\round_neutral.json"
+          },
+          {
+            "Type": "Slider",
+            "Name": "DAC_PA4",
+            "X": 44,
+            "Y": 367,
+            "Width": 232,
+            "Height": 32,
+            "IsHorizontalSlider": true,
+            "BackgroundUnselected": "__generated\\alternate_theme_images_widgets_slider_horizontal_thick_track_small.png",
+            "BackgroundSelected": "__generated\\alternate_theme_images_widgets_slider_horizontal_thick_filler_small.png",
+            "Indicator": "__generated\\alternate_theme_images_widgets_slider_horizontal_thick_rounded_active.png",
+            "BackgroundX": 16,
+            "BackgroundY": 11,
+            "IndicatorMax": 200,
+            "ValueMax": 330,
+            "Preset": "alternate_theme\\presets\\slider\\horizontal\\thick\\small_rounded_active.json"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "DI1_PF5",
+            "Y": 17,
+            "Width": 62,
+            "Height": 34,
+            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_on_normal.png",
+            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_off_light.png",
+            "Preset": "alternate_theme\\presets\\togglebutton\\small\\round_neutral.json"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "DI2_PF3",
+            "X": 62,
+            "Y": 17,
+            "Width": 62,
+            "Height": 34,
+            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_on_normal.png",
+            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_off_light.png",
+            "Preset": "alternate_theme\\presets\\togglebutton\\small\\round_neutral.json"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "DI3_PD2",
+            "X": 124,
+            "Y": 17,
+            "Width": 62,
+            "Height": 34,
+            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_on_normal.png",
+            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_off_light.png",
+            "Preset": "alternate_theme\\presets\\togglebutton\\small\\round_neutral.json"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "DI4_PC12",
+            "X": 186,
+            "Y": 17,
+            "Width": 62,
+            "Height": 34,
+            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_on_normal.png",
+            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_off_light.png",
+            "Preset": "alternate_theme\\presets\\togglebutton\\small\\round_neutral.json"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "DI5_PC11",
+            "X": 248,
+            "Y": 17,
+            "Width": 62,
+            "Height": 34,
+            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_on_normal.png",
+            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_off_light.png",
+            "Preset": "alternate_theme\\presets\\togglebutton\\small\\round_neutral.json"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "AUX3BTN_PF2",
+            "Y": 240,
+            "Width": 62,
+            "Height": 34,
+            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_on_normal.png",
+            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_off_light.png",
+            "Preset": "alternate_theme\\presets\\togglebutton\\small\\round_neutral.json"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "USRBTN_PB2",
+            "X": 62,
+            "Y": 240,
+            "Width": 62,
+            "Height": 34,
+            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_on_normal.png",
+            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_off_light.png",
+            "Preset": "alternate_theme\\presets\\togglebutton\\small\\round_neutral.json"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "MCUBTN_PB11",
+            "X": 124,
+            "Y": 240,
+            "Width": 62,
+            "Height": 34,
+            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_on_normal.png",
+            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_off_light.png",
+            "Preset": "alternate_theme\\presets\\togglebutton\\small\\round_neutral.json"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "FLTBTN_PA8",
+            "X": 186,
+            "Y": 240,
+            "Width": 62,
+            "Height": 34,
+            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_on_normal.png",
+            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_off_light.png",
+            "Preset": "alternate_theme\\presets\\togglebutton\\small\\round_neutral.json"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "DACA0_PB3",
+            "X": 31,
+            "Y": 305,
+            "Width": 62,
+            "Height": 34,
+            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_on_normal.png",
+            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_off_light.png",
+            "Preset": "alternate_theme\\presets\\togglebutton\\small\\round_neutral.json"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "DACA1_PC6",
+            "X": 214,
+            "Y": 305,
+            "Width": 62,
+            "Height": 34,
+            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_on_normal.png",
+            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_off_light.png",
+            "Preset": "alternate_theme\\presets\\togglebutton\\small\\round_neutral.json"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "DI6_PC10",
+            "Y": 94,
+            "Width": 62,
+            "Height": 34,
+            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_on_normal.png",
+            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_off_light.png",
+            "Preset": "alternate_theme\\presets\\togglebutton\\small\\round_neutral.json"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "DI7_PC9",
+            "X": 62,
+            "Y": 94,
+            "Width": 62,
+            "Height": 34,
+            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_on_normal.png",
+            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_off_light.png",
+            "Preset": "alternate_theme\\presets\\togglebutton\\small\\round_neutral.json"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "DI8_PC8",
+            "X": 124,
+            "Y": 94,
+            "Width": 62,
+            "Height": 34,
+            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_on_normal.png",
+            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_off_light.png",
+            "Preset": "alternate_theme\\presets\\togglebutton\\small\\round_neutral.json"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "DI9_PA3",
+            "X": 186,
+            "Y": 94,
+            "Width": 62,
+            "Height": 34,
+            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_on_normal.png",
+            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_off_light.png",
+            "Preset": "alternate_theme\\presets\\togglebutton\\small\\round_neutral.json"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "DI10_PC3",
+            "X": 248,
+            "Y": 94,
+            "Width": 62,
+            "Height": 34,
+            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_on_normal.png",
+            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_off_light.png",
+            "Preset": "alternate_theme\\presets\\togglebutton\\small\\round_neutral.json"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "DI11_PC1",
+            "Y": 168,
+            "Width": 62,
+            "Height": 34,
+            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_on_normal.png",
+            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_off_light.png",
+            "Preset": "alternate_theme\\presets\\togglebutton\\small\\round_neutral.json"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "DI12_PC0",
+            "X": 62,
+            "Y": 168,
+            "Width": 62,
+            "Height": 34,
+            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_on_normal.png",
+            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_off_light.png",
+            "Preset": "alternate_theme\\presets\\togglebutton\\small\\round_neutral.json"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "AUX0BTN_PE0",
+            "X": 124,
+            "Y": 168,
+            "Width": 62,
+            "Height": 34,
+            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_on_normal.png",
+            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_off_light.png",
+            "Preset": "alternate_theme\\presets\\togglebutton\\small\\round_neutral.json"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "AUX1BTN_PE3",
+            "X": 186,
+            "Y": 168,
+            "Width": 62,
+            "Height": 34,
+            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_on_normal.png",
+            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_off_light.png",
+            "Preset": "alternate_theme\\presets\\togglebutton\\small\\round_neutral.json"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "AUX2BTN_PF8",
+            "X": 248,
+            "Y": 168,
+            "Width": 62,
+            "Height": 34,
+            "Pressed": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_on_normal.png",
+            "Released": "__generated\\alternate_theme_images_widgets_togglebutton_small_round_small_off_light.png",
+            "Preset": "alternate_theme\\presets\\togglebutton\\small\\round_neutral.json"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 9,
+            "Y": 51,
+            "Width": 34,
+            "Height": 12,
+            "TextId": "__SingleUse_XUBI",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1_1",
+            "X": 71,
+            "Y": 51,
+            "Width": 34,
+            "Height": 12,
+            "TextId": "__SingleUse_SPBP",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1_2",
+            "X": 195,
+            "Y": 51,
+            "Width": 39,
+            "Height": 12,
+            "TextId": "__SingleUse_C6ES",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1_1_2",
+            "X": 253,
+            "Y": 51,
+            "Width": 39,
+            "Height": 12,
+            "TextId": "__SingleUse_SJYG",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1_1_1",
+            "X": 133,
+            "Y": 51,
+            "Width": 35,
+            "Height": 12,
+            "TextId": "__SingleUse_H8GE",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1_3",
+            "X": 9,
+            "Y": 128,
+            "Width": 39,
+            "Height": 12,
+            "TextId": "__SingleUse_NLZ3",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1_1_3",
+            "X": 71,
+            "Y": 128,
+            "Width": 34,
+            "Height": 12,
+            "TextId": "__SingleUse_SPWS",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1_2_1",
+            "X": 195,
+            "Y": 128,
+            "Width": 35,
+            "Height": 12,
+            "TextId": "__SingleUse_A5ZP",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1_1_2_1",
+            "X": 253,
+            "Y": 128,
+            "Width": 39,
+            "Height": 12,
+            "TextId": "__SingleUse_P39Y",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1_1_1_1",
+            "X": 133,
+            "Y": 128,
+            "Width": 34,
+            "Height": 12,
+            "TextId": "__SingleUse_NSNI",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1_3_1",
+            "X": 7,
+            "Y": 202,
+            "Width": 39,
+            "Height": 12,
+            "TextId": "__SingleUse_6UNR",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1_1_3_1",
+            "X": 69,
+            "Y": 202,
+            "Width": 39,
+            "Height": 12,
+            "TextId": "__SingleUse_7RB1",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1_2_1_1",
+            "X": 195,
+            "Y": 202,
+            "Width": 47,
+            "Height": 10,
+            "TextId": "__SingleUse_7ZKJ",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1_1_2_1_1",
+            "X": 256,
+            "Y": 202,
+            "Width": 47,
+            "Height": 10,
+            "TextId": "__SingleUse_44H4",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1_1_2_1_1_1",
+            "X": 8,
+            "Y": 274,
+            "Width": 47,
+            "Height": 10,
+            "TextId": "__SingleUse_H28D",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1_1_2_1_1_1_1",
+            "X": 65,
+            "Y": 274,
+            "Width": 43,
+            "Height": 10,
+            "TextId": "__SingleUse_XN8Q",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1_1_2_1_1_1_1_1",
+            "X": 131,
+            "Y": 274,
+            "Width": 49,
+            "Height": 10,
+            "TextId": "__SingleUse_G8Y9",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1_1_2_1_1_1_1_1_1",
+            "X": 198,
+            "Y": 274,
+            "Width": 41,
+            "Height": 10,
+            "TextId": "__SingleUse_NMQ6",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1_1_2_1_1_1_1_1_1_1",
+            "X": 37,
+            "Y": 339,
+            "Width": 49,
+            "Height": 12,
+            "TextId": "__SingleUse_YCOF",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1_1_2_1_1_1_1_1_1_1_2",
+            "X": 129,
+            "Y": 339,
+            "Width": 55,
+            "Height": 12,
+            "TextId": "__SingleUse_VU4A",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1_1_2_1_1_1_1_1_1_1_1",
+            "X": 224,
+            "Y": 339,
+            "Width": 48,
+            "Height": 12,
+            "TextId": "__SingleUse_CIVJ",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1_1_2_1_1_1_1_1_1_1_1_1",
+            "X": 44,
+            "Y": 399,
+            "Width": 136,
+            "Height": 24,
+            "TextId": "__SingleUse_5OR8",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1_1_1_1_1",
+            "X": 131,
+            "Y": 202,
+            "Width": 47,
+            "Height": 10,
+            "TextId": "__SingleUse_1TM3",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "K1NO_Read",
+            "X": 7,
+            "Y": 423,
+            "Width": 48,
+            "Height": 24,
+            "TextId": "__SingleUse_F3C4",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "K1NC_Read",
+            "X": 7,
+            "Y": 447,
+            "Width": 45,
+            "Height": 24,
+            "TextId": "__SingleUse_J4RT",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "K2NO_Read",
+            "X": 69,
+            "Y": 423,
+            "Width": 48,
+            "Height": 24,
+            "TextId": "__SingleUse_D3TH",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "K2NC_Read",
+            "X": 69,
+            "Y": 447,
+            "Width": 48,
+            "Height": 24,
+            "TextId": "__SingleUse_5ZNG",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "DO1_Read",
+            "X": 168,
+            "Y": 441,
+            "Width": 37,
+            "Height": 24,
+            "TextId": "__SingleUse_6Q9E",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "DO2_Read",
+            "X": 230,
+            "Y": 441,
+            "Width": 37,
+            "Height": 24,
+            "TextId": "__SingleUse_YSAA",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "ButtonWithIcon",
+            "Name": "buttonWithIcon1",
+            "X": 212,
+            "Y": 399,
+            "Width": 100,
+            "Height": 36,
+            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_36_tiny_rounded_pressed.png",
+            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_36_tiny_rounded_normal.png",
+            "IconPressed": "__generated\\icon_theme_images_action_done_50_50_E8F6FB.svg.png",
+            "IconReleased": "__generated\\icon_theme_images_action_home_50_50_E8F6FB.svg.png",
+            "IconX": 25,
+            "IconY": -7,
+            "IconHeight": 50,
+            "IconWidth": 50,
+            "Preset": "alternate_theme\\presets\\button\\regular\\height_36\\tiny_rounded_normal.json"
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "Return_Home",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "buttonWithIcon1"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Start_Screen"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "Start_Screen_Container",
+        "Width": 320,
+        "Height": 480,
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "background_image",
+            "Width": 320,
+            "Height": 480,
+            "RelativeFilename": "Welcome_Screen.png"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "buttonBeginAUTO",
+            "X": 40,
+            "Y": 398,
+            "Width": 240,
+            "Height": 50,
+            "Pressed": "Red_Pressed.png",
+            "Released": "Red_Not_Pressed.png",
+            "TextId": "__SingleUse_HGA0",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "buttonBeginManual",
+            "X": 40,
+            "Y": 339,
+            "Width": 240,
+            "Height": 50,
+            "Pressed": "Red_Pressed.png",
+            "Released": "Red_Not_Pressed.png",
+            "TextId": "__SingleUse_RUCM",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0"
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "BeginManual",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "buttonBeginManual"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Test_GPIO_Screen"
+            }
+          },
+          {
+            "InteractionName": "BeginAutomatic",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "buttonBeginAUTO"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Comm_Reset_Screen"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "Comm_Reset_Screen",
+        "Width": 320,
+        "Height": 480,
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "Background_image",
+            "Width": 320,
+            "Height": 480,
+            "RelativeFilename": "Clear_White.png"
+          },
+          {
+            "Type": "Box",
+            "Name": "box_behind_Analog_Inputs",
+            "X": 12,
+            "Y": 323,
+            "Width": 139,
+            "Height": 24,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "box_behind_Digital_Inputs",
+            "X": 12,
+            "Y": 75,
+            "Width": 133,
+            "Height": 24,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "box_behind_Communication",
+            "X": 12,
+            "Y": 27,
+            "Width": 156,
+            "Height": 24,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Connected",
+            "X": 49,
+            "Y": 51,
+            "Width": 90,
+            "Height": 24,
+            "TextId": "__SingleUse_2N97",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Connected_1",
+            "X": 49,
+            "Y": 171,
+            "Width": 128,
+            "Height": 24,
+            "TextId": "__SingleUse_0JPK",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Reconnected",
+            "X": 49,
+            "Y": 189,
+            "Width": 108,
+            "Height": 24,
+            "TextId": "__SingleUse_34T2",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "FC_Button_Pressed",
+            "X": 49,
+            "Y": 311,
+            "Width": 128,
+            "Height": 24,
+            "TextId": "__SingleUse_89Q9",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "FC_Reconnected",
+            "X": 49,
+            "Y": 329,
+            "Width": 108,
+            "Height": 24,
+            "TextId": "__SingleUse_B2NA",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Communication",
+            "X": 12,
+            "Y": 27,
+            "Width": 133,
+            "Height": 24,
+            "TextId": "__SingleUse_WOOJ",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "MCU_Reset",
+            "X": 12,
+            "Y": 147,
+            "Width": 92,
+            "Height": 24,
+            "TextId": "__SingleUse_MNJP",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Fault_Check",
+            "X": 12,
+            "Y": 287,
+            "Width": 97,
+            "Height": 24,
+            "TextId": "__SingleUse_MHQO",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "BoxProgress",
+            "Name": "boxprogressbar_Comm_Reset_Buttons",
+            "X": 10,
+            "Y": 441,
+            "Width": 300,
+            "Height": 10,
+            "Color": {
+              "Green": 255,
+              "Blue": 85
+            },
+            "Direction": "Right",
+            "FileNameBackground": "__generated\\alternate_theme_images_widgets_boxprogress_normal_medium.png",
+            "IndicatorPositionWidth": 300,
+            "IndicatorPositionHeight": 10,
+            "ProgressRangeMax": 100
+          },
+          {
+            "Type": "Image",
+            "Name": "image2",
+            "X": 214,
+            "Y": 152,
+            "Width": 75,
+            "Height": 75,
+            "RelativeFilename": "MCU_Reset_Screenshot.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "image2_2",
+            "X": 214,
+            "Y": 27,
+            "Width": 75,
+            "Height": 75,
+            "RelativeFilename": "Connection_Image.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "image2_1",
+            "X": 214,
+            "Y": 283,
+            "Width": 75,
+            "Height": 75,
+            "RelativeFilename": "Fault_Button_Screenshot.png"
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "To_InputsScreen",
+            "Trigger": {
+              "Type": "TriggerProgressIndicatorValueUpdateCompleted",
+              "TriggerComponent": "boxprogressbar_Comm_Reset_Buttons"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Inputs_Screen"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "Inputs_Screen",
+        "Width": 320,
+        "Height": 480,
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "Background_Image",
+            "Width": 320,
+            "Height": 480,
+            "RelativeFilename": "Clear_White.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "Analog_Inputs_Image",
+            "X": 217,
+            "Y": 320,
+            "Width": 75,
+            "Height": 75,
+            "RelativeFilename": "Analog_Input_Screenshot.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "Digital_Inputs_Image",
+            "X": 229,
+            "Y": 37,
+            "Width": 50,
+            "Height": 200,
+            "RelativeFilename": "Digital_Input_Screenshot.png"
+          },
+          {
+            "Type": "BoxProgress",
+            "Name": "boxprogressbar_Inputs",
+            "X": 10,
+            "Y": 441,
+            "Width": 300,
+            "Height": 10,
+            "Color": {
+              "Green": 255,
+              "Blue": 85
+            },
+            "Direction": "Right",
+            "FileNameBackground": "__generated\\alternate_theme_images_widgets_boxprogress_normal_medium.png",
+            "IndicatorPositionWidth": 300,
+            "IndicatorPositionHeight": 10,
+            "ProgressRangeMax": 100
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Digital_Inputs_Header",
+            "X": 13,
+            "Y": 13,
+            "Width": 112,
+            "Height": 24,
+            "TextId": "__SingleUse_TI3O",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Analog_Inputs_Header",
+            "X": 13,
+            "Y": 297,
+            "Width": 116,
+            "Height": 24,
+            "TextId": "__SingleUse_PLOZ",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Analog_Input_1",
+            "X": 50,
+            "Y": 321,
+            "Width": 123,
+            "Height": 24,
+            "TextId": "__SingleUse_HNIH",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Analog_Input_2",
+            "X": 50,
+            "Y": 339,
+            "Width": 123,
+            "Height": 24,
+            "TextId": "__SingleUse_22VE",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Analog_Input_3",
+            "X": 50,
+            "Y": 357,
+            "Width": 123,
+            "Height": 24,
+            "TextId": "__SingleUse_YBCJ",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Analog_Input_4",
+            "X": 50,
+            "Y": 375,
+            "Width": 123,
+            "Height": 24,
+            "TextId": "__SingleUse_3TX8",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Digital_Input_1",
+            "X": 50,
+            "Y": 37,
+            "Width": 119,
+            "Height": 24,
+            "TextId": "__SingleUse_IXWG",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Digital_Input_2",
+            "X": 50,
+            "Y": 55,
+            "Width": 119,
+            "Height": 24,
+            "TextId": "__SingleUse_NPFQ",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Digital_Input_3",
+            "X": 50,
+            "Y": 73,
+            "Width": 119,
+            "Height": 24,
+            "TextId": "__SingleUse_8ZGJ",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Digital_Input_4",
+            "X": 50,
+            "Y": 91,
+            "Width": 119,
+            "Height": 24,
+            "TextId": "__SingleUse_T9D5",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Digital_Input_5",
+            "X": 50,
+            "Y": 109,
+            "Width": 119,
+            "Height": 24,
+            "TextId": "__SingleUse_DOO8",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Digital_Input_6",
+            "X": 50,
+            "Y": 127,
+            "Width": 119,
+            "Height": 24,
+            "TextId": "__SingleUse_5JB6",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Digital_Input_7",
+            "X": 50,
+            "Y": 145,
+            "Width": 119,
+            "Height": 24,
+            "TextId": "__SingleUse_8LPI",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Digital_Input_8",
+            "X": 50,
+            "Y": 163,
+            "Width": 119,
+            "Height": 24,
+            "TextId": "__SingleUse_BNE3",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Digital_Input_9",
+            "X": 50,
+            "Y": 181,
+            "Width": 119,
+            "Height": 24,
+            "TextId": "__SingleUse_A587",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Digital_Input_10",
+            "X": 50,
+            "Y": 199,
+            "Width": 129,
+            "Height": 24,
+            "TextId": "__SingleUse_0LUO",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Digital_Input_11",
+            "X": 50,
+            "Y": 217,
+            "Width": 129,
+            "Height": 24,
+            "TextId": "__SingleUse_APIF",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Digital_Input_12",
+            "X": 50,
+            "Y": 235,
+            "Width": 129,
+            "Height": 24,
+            "TextId": "__SingleUse_NS0A",
+            "TextRotation": "0",
+            "AutoSize": true
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "To_OutputsScreen",
+            "Trigger": {
+              "Type": "TriggerProgressIndicatorValueUpdateCompleted",
+              "TriggerComponent": "boxprogressbar_Inputs"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Outputs_Screen"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "Outputs_Screen",
+        "Width": 320,
+        "Height": 480,
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "Background_Image",
+            "Width": 320,
+            "Height": 480,
+            "RelativeFilename": "Clear_White.png"
+          },
+          {
+            "Type": "BoxProgress",
+            "Name": "boxprogressbar_Outputs",
+            "X": 10,
+            "Y": 441,
+            "Width": 300,
+            "Height": 10,
+            "Color": {
+              "Green": 255,
+              "Blue": 85
+            },
+            "Direction": "Right",
+            "FileNameBackground": "__generated\\alternate_theme_images_widgets_boxprogress_normal_medium.png",
+            "IndicatorPositionWidth": 300,
+            "IndicatorPositionHeight": 10,
+            "ProgressRangeMax": 100
+          },
+          {
+            "Type": "Image",
+            "Name": "Digital_Outputs_Image",
+            "X": 211,
+            "Y": 36,
+            "Width": 75,
+            "Height": 75,
+            "RelativeFilename": "Digital_Output_Screenshot.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "Relay_Outputs_Image",
+            "X": 211,
+            "Y": 204,
+            "Width": 75,
+            "Height": 75,
+            "RelativeFilename": "Relay_Screenshot.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Digital_Output_1",
+            "X": 50,
+            "Y": 60,
+            "Width": 128,
+            "Height": 24,
+            "TextId": "__SingleUse_4ZB6",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Digital_Output_2",
+            "X": 50,
+            "Y": 78,
+            "Width": 128,
+            "Height": 24,
+            "TextId": "__SingleUse_II8X",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "K1_NO",
+            "X": 50,
+            "Y": 216,
+            "Width": 53,
+            "Height": 24,
+            "TextId": "__SingleUse_SFL4",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "K1_NC",
+            "X": 50,
+            "Y": 234,
+            "Width": 50,
+            "Height": 24,
+            "TextId": "__SingleUse_5X3F",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "K2_NO",
+            "X": 50,
+            "Y": 252,
+            "Width": 53,
+            "Height": 24,
+            "TextId": "__SingleUse_7FUM",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "K2_NC",
+            "X": 50,
+            "Y": 270,
+            "Width": 50,
+            "Height": 24,
+            "TextId": "__SingleUse_DYM7",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Digital_Outputs",
+            "X": 11,
+            "Y": 36,
+            "Width": 128,
+            "Height": 24,
+            "TextId": "__SingleUse_N5XA",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Relay_Outputs",
+            "X": 11,
+            "Y": 192,
+            "Width": 119,
+            "Height": 24,
+            "TextId": "__SingleUse_6MMW",
+            "TextRotation": "0",
+            "AutoSize": true
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "To_ButtonsLEDsScreen",
+            "Trigger": {
+              "Type": "TriggerProgressIndicatorValueUpdateCompleted",
+              "TriggerComponent": "boxprogressbar_Outputs"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Buttons_LEDs_Screen"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "Buttons_LEDs_Screen",
+        "Width": 320,
+        "Height": 480,
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "Background_Image",
+            "Width": 320,
+            "Height": 480,
+            "RelativeFilename": "Clear_White.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "Aux_Button_Image",
+            "X": 215,
+            "Y": 59,
+            "Width": 75,
+            "Height": 75,
+            "RelativeFilename": "Aux_Button_Screenshot.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "USR_Button_LEDs_Image",
+            "X": 215,
+            "Y": 134,
+            "Width": 75,
+            "Height": 75,
+            "RelativeFilename": "USR_Button_LED_Screenshot.png"
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "button_LEDs_BAD",
+            "X": 12,
+            "Y": 371,
+            "Width": 110,
+            "Height": 50,
+            "Pressed": "Small_RED_Pressed.png",
+            "Released": "Small_RED_Not_Pressed.png",
+            "TextId": "__SingleUse_KGDC",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0"
+          },
+          {
+            "Type": "BoxProgress",
+            "Name": "boxprogressbar_Buttons_LEDs",
+            "X": 10,
+            "Y": 441,
+            "Width": 300,
+            "Height": 10,
+            "Color": {
+              "Green": 255,
+              "Blue": 85
+            },
+            "Direction": "Right",
+            "FileNameBackground": "__generated\\alternate_theme_images_widgets_boxprogress_normal_medium.png",
+            "IndicatorPositionWidth": 300,
+            "IndicatorPositionHeight": 10,
+            "ProgressRangeMax": 100
+          },
+          {
+            "Type": "TextArea",
+            "Name": "USR_0_Button",
+            "X": 49,
+            "Y": 51,
+            "Width": 116,
+            "Height": 24,
+            "TextId": "__SingleUse_ZZ5H",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "PNL_0_Button",
+            "X": 49,
+            "Y": 69,
+            "Width": 115,
+            "Height": 24,
+            "TextId": "__SingleUse_4N5H",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "PNL_1_Button",
+            "X": 49,
+            "Y": 87,
+            "Width": 115,
+            "Height": 24,
+            "TextId": "__SingleUse_G2LW",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "PNL_2_Button",
+            "X": 49,
+            "Y": 105,
+            "Width": 115,
+            "Height": 24,
+            "TextId": "__SingleUse_63ES",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "PNL_3_Button",
+            "X": 49,
+            "Y": 123,
+            "Width": 115,
+            "Height": 24,
+            "TextId": "__SingleUse_FIR1",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Buttons_Header",
+            "X": 12,
+            "Y": 27,
+            "Width": 66,
+            "Height": 24,
+            "TextId": "__SingleUse_67YN",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "AnimatedImage",
+            "Name": "animatedImage1",
+            "X": 40,
+            "Y": 217,
+            "Width": 240,
+            "Height": 136,
+            "FileNameFirst": "Blinking_1_LED.png",
+            "FileNameLast": "Blinking_2_LED.png",
+            "UpdateTicksInterval": 500,
+            "StartOnLoad": true,
+            "LoopEnabled": true
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "button_LEDs_GOOD",
+            "X": 197,
+            "Y": 371,
+            "Width": 110,
+            "Height": 50,
+            "Pressed": "Green_Pressed.png",
+            "Released": "Green_Background.png",
+            "TextId": "__SingleUse_E4TX",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0"
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "To_TestCompleteScreen",
+            "Trigger": {
+              "Type": "TriggerProgressIndicatorValueUpdateCompleted",
+              "TriggerComponent": "boxprogressbar_Buttons_LEDs"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Test_Complete_Screen"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "Fault_Screen",
+        "Width": 320,
+        "Height": 480,
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "Background_Image",
+            "Width": 320,
+            "Height": 480,
+            "RelativeFilename": "Function_Test_Fail.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Error_Code",
+            "X": 95,
+            "Y": 139,
+            "Width": 130,
+            "Height": 36,
+            "TextId": "__SingleUse_XVP7",
+            "TextRotation": "0",
+            "AutoSize": true,
+            "Wildcard1": {},
+            "WideTextAction": 3
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Test_Failed",
+            "X": 95,
+            "Y": 240,
+            "Width": 130,
+            "Height": 36,
+            "TextId": "__SingleUse_EP6A",
+            "TextRotation": "0",
+            "AutoSize": true,
+            "Wildcard1": {},
+            "WideTextAction": 3
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Expected_Value",
+            "X": 9,
+            "Y": 341,
+            "Width": 130,
+            "Height": 36,
+            "TextId": "__SingleUse_Q9K7",
+            "TextRotation": "0",
+            "AutoSize": true,
+            "Wildcard1": {}
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Actual_Value",
+            "X": 172,
+            "Y": 341,
+            "Width": 130,
+            "Height": 36,
+            "TextId": "__SingleUse_MK7Z",
+            "TextRotation": "0",
+            "AutoSize": true,
+            "Wildcard1": {}
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "ReturnToHome_BTN",
+            "X": 40,
+            "Y": 398,
+            "Width": 240,
+            "Height": 50,
+            "Pressed": "Red_Pressed.png",
+            "Released": "Red_Not_Pressed.png",
+            "TextId": "__SingleUse_7KC5",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0"
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "ReturntoHome",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "ReturnToHome_BTN"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Start_Screen"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "Test_Complete_Screen",
+        "Width": 320,
+        "Height": 480,
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "Test_Complete_Background",
+            "Width": 320,
+            "Height": 480,
+            "RelativeFilename": "Test_Complete.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Total_Time_txt",
+            "X": 95,
+            "Y": 139,
+            "Width": 130,
+            "Height": 36,
+            "TextId": "__SingleUse_6MYT",
+            "TextRotation": "0",
+            "AutoSize": true,
+            "Wildcard1": {},
+            "WideTextAction": 3
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Name": "ReturnToHome_BTN",
+            "X": 40,
+            "Y": 398,
+            "Width": 240,
+            "Height": 50,
+            "Pressed": "Red_Pressed.png",
+            "Released": "Red_Not_Pressed.png",
+            "TextId": "__SingleUse_4IO9",
+            "ReleasedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "PressedColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextRotation": "0"
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "ReturnHome",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "ReturnToHome_BTN"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Start_Screen"
+            }
+          }
+        ]
+      }
+    ],
+    "Name": "EOL_TestFixture_Final",
+    "Resolution": {
+      "Width": 320,
+      "Height": 480
+    },
+    "SelectedColorDepth": 16,
+    "StartupScreenName": "Start_Screen",
+    "SelectedStartupLanguage": "GB",
+    "TouchGfxPath": "../Middlewares/ST/touchgfx",
+    "UIPath": ".",
+    "AvailableColorDepths": [
+      16
+    ],
+    "AvailableLCDs": {
+      "16": "LCD16bpp"
+    },
+    "AvailableSections": [
+      "ExtFlashSection",
+      "IntFlashSection"
+    ],
+    "AvailableResolutions": [
+      {
+        "Width": 320,
+        "Height": 480
+      }
+    ],
+    "PhysicalButtons": [
+      {
+        "Key": 1,
+        "Name": "USER_BUTTON"
+      }
+    ],
+    "FrameworkFeatures": {
+      "LCD16bpp": {
+        "Id": "LCD16bpp",
+        "IsEnabled": true
+      }
+    },
+    "GenerateAssetsCommand": "make -f simulator/gcc/Makefile assets -j8",
+    "PostGenerateCommand": "touchgfx update_project --project-file=simulator/msvs/Application.vcxproj",
+    "PostGenerateTargetCommand": "touchgfx update_project",
+    "CompileSimulatorCommand": "make -f simulator/gcc/Makefile -j8",
+    "RunSimulatorCommand": "build\\bin\\simulator.exe",
+    "CompileTargetCommandOverride": "make -f ../gcc/Makefile -j8",
+    "FlashTargetCommandOverride": "make -f ../gcc/Makefile flash",
+    "FlashTargetIntCommandOverride": "make -f ../gcc/Makefile intflash",
+    "LandscapeSkinX": 0,
+    "LandscapeSkinY": 0,
+    "PortraitSkinX": 0,
+    "PortraitSkinY": 0,
+    "DisplayOrientation": "Portrait",
+    "Family": "STM32U5",
+    "SubFamily": "STM32U575/585",
+    "Toolchain": "STM32CubeIDE",
+    "Platform": "m33",
+    "ProjectFile": "../STM32U575ZI_NUCLEO_RVA35HI.ioc",
+    "OptionalComponentsRoot": "../Middlewares/ST/touchgfx_components",
+    "OptionalComponents": [],
+    "AdditionalFeatures": [
+      "CWRVector",
+      "VectorFonts"
+    ]
+  },
+  "Version": "4.26.0",
+  "CreatedBy": "4.26.0"
+}
