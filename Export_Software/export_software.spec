@@ -12,7 +12,7 @@ icon_path = project_dir / "assets" / "rite_hite_app_icon.ico"
 datas = [
     (str(project_dir / "assets"), "assets"),
     (str(project_dir / "esp32_test_firmware"), "esp32_test_firmware"),
-    (str(project_root / "ArduinoIDE" / "EOL_RiteHite_Final"), "esp32_test_sketch"),
+    (str(project_dir / "tools"), "tools"),
 ]
 
 # Bundle the qtawesome icon fonts (FontAwesome / MaterialDesignIcons) with the

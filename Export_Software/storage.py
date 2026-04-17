@@ -5,12 +5,12 @@ import json
 from dataclasses import asdict, dataclass
 from datetime import datetime
 from pathlib import Path
-from app_paths import get_app_dir
+from app_paths import get_data_dir
 from serial_client import ExportRun
 from translations import tr
 
 
-BASE_DIR = get_app_dir()
+BASE_DIR = get_data_dir()
 EXPORTS_DIR = BASE_DIR / "exports"
 LAST_OPERATION_FILE = BASE_DIR / "last_successful_operation.json"
 SETTINGS_FILE = BASE_DIR / "settings.json"

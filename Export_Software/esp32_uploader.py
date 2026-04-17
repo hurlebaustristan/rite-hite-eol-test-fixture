@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import shlex
 import shutil
 import subprocess
 from dataclasses import dataclass
@@ -11,21 +12,17 @@ from serial_client import PortChoice, list_available_ports
 from translations import tr
 
 
-ARDUINO_CLI_BUNDLED_PATH = Path(
-    r"C:\Users\hurlebaust\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\arduino-cli.exe"
-)
-SOURCE_TEST_SKETCH_DIR = Path(r"C:\TouchGFXProjects\EOL_TestFixture_Final\ArduinoIDE\EOL_RiteHite_Final")
-TEST_SKETCH_NAME = "EOL_RiteHite_Final"
 TEST_BOARD_NAME = "ESP32S3 Dev Module"
-TEST_FQBN = "esp32:esp32:esp32s3"
+ESP32_CHIP = "esp32s3"
+ESPTOOL_BUNDLED_PATH = get_bundle_dir() / "tools" / "esptool.exe"
 TEST_FIRMWARE_DIR = get_bundle_dir() / "esp32_test_firmware"
-TEST_BUNDLED_SKETCH_DIR = get_bundle_dir() / "esp32_test_sketch"
+FLASH_ARGS_FILE = "flash_args"
 REQUIRED_FIRMWARE_FILES = (
     "EOL_RiteHite_Final.ino.bin",
     "EOL_RiteHite_Final.ino.bootloader.bin",
     "EOL_RiteHite_Final.ino.partitions.bin",
-    "partitions.csv",
-    "build.options.json",
+    "boot_app0.bin",
+    FLASH_ARGS_FILE,
 )
 
 STLINK_MARKERS = (
@@ -39,12 +36,9 @@ STLINK_MARKERS = (
 
 @dataclass(frozen=True)
 class Esp32UploadConfig:
-    cli_path: Path
-    sketch_dir: Path
-    sketch_name: str
-    fqbn: str
+    flasher_path: Path
     board_name: str
-    build_path: Path
+    firmware_dir: Path
 
 
 @dataclass(frozen=True)
@@ -67,11 +61,7 @@ class Esp32UploadError(Exception):
     pass
 
 
-class ArduinoCliNotFoundError(Esp32UploadError):
-    pass
-
-
-class SketchPathNotFoundError(Esp32UploadError):
+class FlasherToolNotFoundError(Esp32UploadError):
     pass
 
 
@@ -81,22 +71,16 @@ class FirmwareBundleNotFoundError(Esp32UploadError):
 
 class UploadCommandError(Esp32UploadError):
     def __init__(self, stage_name: str, return_code: int) -> None:
-        super().__init__(f"{stage_name} failed. Arduino CLI exited with code {return_code}.")
+        super().__init__(f"{stage_name} failed. ESP32 flasher exited with code {return_code}.")
         self.stage_name = stage_name
         self.return_code = return_code
 
 
 def get_default_upload_config() -> Esp32UploadConfig:
-    cli_path = _resolve_arduino_cli_path()
-    sketch_dir = _resolve_sketch_dir()
-
     return Esp32UploadConfig(
-        cli_path=cli_path,
-        sketch_dir=sketch_dir,
-        sketch_name=TEST_SKETCH_NAME,
-        fqbn=TEST_FQBN,
+        flasher_path=_resolve_flasher_path(),
         board_name=TEST_BOARD_NAME,
-        build_path=_resolve_firmware_bundle_path(),
+        firmware_dir=_resolve_firmware_bundle_path(),
     )
 
 
@@ -164,12 +148,11 @@ def discover_upload_targets() -> Esp32UploadDiscovery:
         auto_choice=None,
         pair_choices=pair_choices,
         manual_choices=manual_choices,
-            reason=tr("esp_multi_pair_reason"),
+        reason=tr("esp_multi_pair_reason"),
     )
 
 
 def describe_esp_prog_detection() -> tuple[bool, str]:
-    """Summarize programmer detection for the connection readiness UI."""
     discovery = discover_upload_targets()
     if discovery.auto_choice is not None:
         return (True, tr("esp_detected_on", port=discovery.auto_choice.upload_port))
@@ -185,24 +168,63 @@ def run_upload(
     selection: Esp32UploadChoice,
     log_callback: Callable[[str], None],
 ) -> None:
-    upload_command = [
-        str(config.cli_path),
-        "upload",
-        "-p",
-        selection.upload_port,
-        "--fqbn",
-        config.fqbn,
-        "--build-path",
-        str(config.build_path),
-        "--no-color",
-        str(config.sketch_dir),
-    ]
-
-    log_callback(f"Using Arduino CLI: {config.cli_path}")
-    log_callback(f"Using prebuilt firmware bundle: {config.build_path}")
-    log_callback(f"Uploading {config.sketch_name} to {selection.upload_port}...")
+    upload_command = _build_upload_command(config, selection)
+    log_callback(f"Using ESP32 flasher: {config.flasher_path}")
+    log_callback(f"Using prebuilt firmware bundle: {config.firmware_dir}")
+    log_callback(f"Uploading test firmware to {selection.upload_port}...")
     _run_command(upload_command, log_callback, "Upload")
     log_callback(f"Upload succeeded on {selection.upload_port}.")
+
+
+def _build_upload_command(config: Esp32UploadConfig, selection: Esp32UploadChoice) -> list[str]:
+    flash_options, flash_segments = _read_flash_args(config.firmware_dir)
+    command = [
+        str(config.flasher_path),
+        "--chip",
+        ESP32_CHIP,
+        "--port",
+        selection.upload_port,
+        "--baud",
+        "921600",
+        "--before",
+        "default_reset",
+        "--after",
+        "hard_reset",
+        "write_flash",
+        "-z",
+    ]
+    command.extend(flash_options)
+    command.extend(flash_segments)
+    return command
+
+
+def _read_flash_args(firmware_dir: Path) -> tuple[list[str], list[str]]:
+    flash_args_path = firmware_dir / FLASH_ARGS_FILE
+    if not flash_args_path.exists():
+        raise FirmwareBundleNotFoundError(f"ESP32 flash arguments were not found: {flash_args_path}")
+
+    raw_lines = [line.strip() for line in flash_args_path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    if not raw_lines:
+        raise FirmwareBundleNotFoundError(f"ESP32 flash arguments file is empty: {flash_args_path}")
+
+    flash_options = shlex.split(raw_lines[0])
+    flash_segments: list[str] = []
+
+    for line in raw_lines[1:]:
+        parts = shlex.split(line)
+        if len(parts) != 2:
+            raise FirmwareBundleNotFoundError(f"Invalid flash args entry in {flash_args_path}: {line}")
+
+        offset, relative_name = parts
+        binary_path = firmware_dir / relative_name
+        if not binary_path.exists():
+            raise FirmwareBundleNotFoundError(
+                f"ESP32 firmware bundle is incomplete. Missing file referenced by flash_args: {relative_name}"
+            )
+
+        flash_segments.extend([offset, str(binary_path)])
+
+    return flash_options, flash_segments
 
 
 def _run_command(command: list[str], log_callback: Callable[[str], None], stage_name: str) -> None:
@@ -230,26 +252,16 @@ def _run_command(command: list[str], log_callback: Callable[[str], None], stage_
         raise UploadCommandError(stage_name, return_code)
 
 
-def _resolve_arduino_cli_path() -> Path:
-    if ARDUINO_CLI_BUNDLED_PATH.exists():
-        return ARDUINO_CLI_BUNDLED_PATH
+def _resolve_flasher_path() -> Path:
+    if ESPTOOL_BUNDLED_PATH.exists():
+        return ESPTOOL_BUNDLED_PATH
 
-    cli_on_path = shutil.which("arduino-cli")
-    if cli_on_path:
-        return Path(cli_on_path)
+    esptool_on_path = shutil.which("esptool.exe") or shutil.which("esptool")
+    if esptool_on_path:
+        return Path(esptool_on_path)
 
-    raise ArduinoCliNotFoundError(
-        "Arduino CLI was not found. Install Arduino IDE or make arduino-cli available on PATH."
-    )
-
-
-def _resolve_sketch_dir() -> Path:
-    if TEST_BUNDLED_SKETCH_DIR.exists():
-        return TEST_BUNDLED_SKETCH_DIR
-    if SOURCE_TEST_SKETCH_DIR.exists():
-        return SOURCE_TEST_SKETCH_DIR
-    raise SketchPathNotFoundError(
-        f"ESP32 test sketch folder was not found: {SOURCE_TEST_SKETCH_DIR}"
+    raise FlasherToolNotFoundError(
+        "ESP32 flasher was not found. Reinstall the app or make esptool available on PATH."
     )
 
 
