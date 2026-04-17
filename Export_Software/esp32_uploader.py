@@ -110,8 +110,8 @@ def discover_upload_targets() -> Esp32UploadDiscovery:
 
         pair_choices.append(
             Esp32UploadChoice(
-                upload_port=left_port.device,
-                label=f"{left_port.device} / {right_port.device} -> upload on {left_port.device}",
+                upload_port=right_port.device,
+                label=f"{left_port.device} / {right_port.device} -> upload on {right_port.device}",
                 pair_ports=(left_port.device, right_port.device),
                 is_pair=True,
             )
