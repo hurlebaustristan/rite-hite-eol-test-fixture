@@ -10,6 +10,20 @@ Desktop software for the Rite-Hite EOL test fixture. This application handles:
 
 For operators and test stations, use the packaged Windows installer rather than running from source.
 
+### Download From GitHub
+
+If you are not building from source, download the installer from the repository Releases page:
+
+```text
+https://github.com/hurlebaustristan/rite-hite-eol-test-fixture/releases/latest
+```
+
+Use the installer asset named:
+
+```text
+EOL_Export_Software_Setup_2026.4.17.exe
+```
+
 ### Exact Installer File
 
 Current installer build:

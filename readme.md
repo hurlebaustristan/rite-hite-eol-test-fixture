@@ -25,6 +25,20 @@ For a normal laptop or test station, the recommended install path is the Windows
 
 Use the installer, not the raw `dist\EOL_Export_Software\` folder, unless you are specifically debugging packaging.
 
+### Download From GitHub
+
+If you are downloading this project from GitHub and just need the installer, use the repository Releases page:
+
+```text
+https://github.com/hurlebaustristan/rite-hite-eol-test-fixture/releases/latest
+```
+
+Download the installer asset named:
+
+```text
+EOL_Export_Software_Setup_2026.4.17.exe
+```
+
 ### Fastest Install Path
 
 1. Get the installer file named:
