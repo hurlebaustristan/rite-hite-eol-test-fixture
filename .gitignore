@@ -67,3 +67,6 @@ ArduinoIDE/EOL_RiteHite_Final/build/
 
 # Logs
 *.log
+
+# Office temporary lock files
+~$*

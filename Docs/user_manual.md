@@ -1,171 +1,335 @@
 # EOL Test Fixture User Manual
 
-## Purpose
+This is the primary operating guide for technicians and operators using the Rite-Hite end-of-line test fixture.
 
-This manual is the primary operator guide for the End-of-Line (EOL) test fixture. It explains how to prepare the station, start a run, understand the screen flow, respond to pass or fail conditions, and export results.
+It explains:
 
-This document is written for operators and technicians. It focuses on normal use of the fixture and avoids firmware-level detail unless it directly affects operator actions.
+- What the fixture and PC app do
+- How to run the normal production workflow
+- How to use the One Click workflow
+- How to export and find CSV results
+- What the operator must still decide manually
 
-## Related Documents
+For engineering detail, see [Project_Knowledge_Base.md](Project_Knowledge_Base.md).
 
-Use this file as the main entry point. Refer to the following supporting documents as needed:
+## System Overview
 
-- [Preflight Checklist](preflight_checklist.md)
-- [Screen Guide](screen_guide.md)
-- [Troubleshooting Guide](troubleshooting_guide.md)
-- [Test Procedure](test_procedure.md)
-- [Error Code Reference](error_code_reference.md)
+The station is made up of three connected pieces:
 
-## Scope
+- The STM32U575 fixture, which runs the touchscreen UI and the test sequence
+- The Rite-Hite Connect target module running the ESP32-S3 test firmware
+- The Windows desktop app, which uploads test firmware, exports results, and can run the One Click workflow
 
-This user manual applies to the current fixture revision for `EOL_TestFixture_Final`.
+The fixture is the source of truth for the test result. It creates the pass/fail report row by row while the test runs. The desktop app reads that completed report and saves it to CSV.
 
-Current revision notes:
+## What Is Tested
 
-- Digital Output 1 and Digital Output 2 are temporary automatic pass items in the present revision.
-- The Buttons / LEDs stage requires operator interaction.
-- Failed runs can still be exported after the system reaches `Fault_Screen`.
+The automatic production flow covers the following sequence:
 
-## Station Requirements
+1. Communication
+2. MCU Reset
+3. Fault Check
+4. Digital Inputs
+5. Analog Inputs
+6. Digital Outputs
+7. Relay Outputs
+8. Buttons
+9. LED Visual Check
 
-Before starting a run, make sure the following are available:
+### Current Revision Notes
 
-- Powered and assembled test fixture
-- STM32 fixture firmware loaded
-- ESP32 EOL test firmware loaded
-- Correct DUT or simulated I/O connection
-- Correct cable set and wiring
-- Windows PC with export software available
-- ST-LINK connection for result export
-- Operator present for the full run, especially the Buttons / LEDs stage
+- Digital Output 1 and Digital Output 2 are temporary auto-pass report rows.
+- The fixture automatically drives the button sequence during the Buttons stage.
+- The technician still makes the final LED decision by pressing `LED's GOOD` or `LED's BAD` on the touchscreen.
+- Failed runs remain exportable.
+- The desktop app production firmware upload feature is not available yet.
 
-For a run-by-run readiness check, use [Preflight Checklist](preflight_checklist.md).
+## Before You Start
 
-## Normal Operating Sequence
+Before running any test:
 
-The production path is the automatic test flow. On the start screen, select `Begin AUTO`.
+1. Power the fixture and confirm the touchscreen starts normally.
+2. Verify that the DUT or harness is connected correctly.
+3. Verify that the correct test firmware is present on the Rite-Hite Connect module, or confirm that the programmer is available so the desktop app can upload it.
+4. Confirm that the Windows app opens and the exports folder is available.
+5. Review [preflight_checklist.md](preflight_checklist.md) if station readiness is in doubt.
 
-Do not use `Begin MANUAL` for normal production testing unless engineering or maintenance has specifically instructed you to use it.
+## Fixture Workflow
 
-### High-Level Flow
+The fixture itself has two entry paths.
 
-| Screen or Stage | What Happens | Operator Action |
-| --- | --- | --- |
-| Start Screen | Entry point to automatic or manual modes | Select `Begin AUTO` for production testing |
-| Comm / Reset | Communication, MCU reset, and fault check run automatically | Observe status and wait |
-| Inputs | Digital and analog input checks run automatically | Observe progress and do not interrupt |
-| Outputs | Digital outputs auto-pass in this revision; relay checks run automatically | Observe progress and do not interrupt |
-| Buttons / LEDs | Button checks and LED visual confirmation occur | Press and release the highlighted button when prompted, then select `LED's GOOD` or `LED's BAD` |
-| Test Complete | Run passed | Record the unit as passed and export the results |
-| Fault Screen | Run failed | Record the failure information and export the results |
+### `Begin AUTO`
 
-## Before Starting A Run
+This is the normal production path.
 
-1. Power the fixture and confirm the display starts normally.
-2. Verify the DUT and all required cables are connected correctly.
-3. Confirm the ESP32 has the correct EOL test firmware loaded.
-4. Confirm the export PC is available if the run will be archived.
-5. Confirm the operator can remain at the station during the Buttons / LEDs stage.
-6. Review [Preflight Checklist](preflight_checklist.md) if there is any doubt about station readiness.
+Use `Begin AUTO` when you want the fixture to run the complete automatic test sequence.
 
-## Running The Automatic Test
+### `Begin MANUAL`
 
-### Step 1 - Start The Test
+This is the service and debug path.
 
-On the start screen, press `Begin AUTO`.
+Use `Begin MANUAL` only when engineering or maintenance instructs you to use the GPIO service screen.
 
-This starts the production test flow through the automatic screens in this order:
+## Standard Production Workflow
 
-1. `Comm_Reset_Screen`
-2. `Inputs_Screen`
-3. `Outputs_Screen`
-4. `Buttons_LEDs_Screen`
-5. `Test_Complete_Screen` or `Fault_Screen`
+This is the normal workflow when the operator starts the test on the fixture and exports afterward from the PC.
 
-### Step 2 - Observe Automatic Stages
+### Step 1: Start The Fixture Run
 
-The following stages run automatically:
+On the fixture touchscreen:
 
-- Communication check
-- MCU reset verification
-- Fault check verification
-- Digital inputs
-- Analog inputs
-- Outputs and relay validation
+1. Confirm the start screen is visible.
+2. Press `Begin AUTO`.
+
+### Step 2: Let The Automatic Stages Run
+
+The fixture then runs:
+
+- Communication
+- MCU Reset
+- Fault Check
+- Digital Inputs
+- Analog Inputs
+- Outputs
+- Buttons
 
 During these stages:
 
-- allow the fixture to complete each stage
-- watch for labels turning green as steps pass
-- do not disconnect the DUT or cables
-- do not restart the run unless the procedure specifically requires it
+- Observe the screen.
+- Do not disconnect the DUT.
+- Do not disconnect the fixture USB or programmer.
+- Do not restart the run unless a fault requires a new test attempt after correction.
 
-### Step 3 - Complete The Buttons / LEDs Stage
+### Step 3: Make The LED Decision
 
-The Buttons / LEDs screen requires operator action.
+At the end of the run, the fixture reaches the LED visual review.
 
-When the active button label turns yellow:
+At that point:
 
-1. Press the indicated button.
-2. Release the same button within the allowed time.
-3. Repeat for each prompted button.
-
-After all button checks pass:
-
-1. Observe the LED pattern.
+1. Look at the LED behavior on the fixture.
 2. Press `LED's GOOD` if the LED behavior is correct.
 3. Press `LED's BAD` if the LED behavior is incorrect.
 
-## Pass And Fail Handling
+### Step 4: Record The Result
 
-### If The Run Passes
+- If the fixture reaches `Test_Complete_Screen`, the run passed.
+- If the fixture reaches `Fault_Screen`, the run failed.
 
-If the fixture reaches `Test_Complete_Screen`:
+On a failure, record:
 
-1. Record the unit as passed.
-2. Export the completed run.
-3. Confirm the expected result file is created on the PC.
+- The displayed hex fault code
+- The failed step name
+- The expected value
+- The actual value
 
-### If The Run Fails
+### Step 5: Export The CSV
 
-If the fixture reaches `Fault_Screen`:
+In the Windows desktop app:
 
-1. Record the displayed error code.
-2. Record the failed test or step name.
-3. Record the expected and actual values shown on the screen.
-4. Do not bypass the failure or continue testing without correction.
-5. Export the failed run according to normal process.
-6. Use [Troubleshooting Guide](troubleshooting_guide.md) and [Error Code Reference](error_code_reference.md) to determine the next action.
+1. Go to `Device Tools`.
+2. Press `Extract Data from Test Fixture`.
+3. Save or confirm the CSV.
+4. Verify that the file appears in `File Explorer`.
 
-## Exporting Results
+## One Click Workflow
 
-After a completed pass or fail:
+One Click is the PC-driven workflow that uploads firmware, starts the fixture automatically, tracks the live stage, and exports the CSV automatically at the end.
 
-1. Open the export software on the PC.
-2. Use `Extract Data from NUCLEO-U575ZI-Q`.
-3. Retrieve the completed run from the STM32 over ST-LINK USART1.
-4. Confirm a CSV file is created and stored in the expected export location.
+### What One Click Does
 
-If export fails:
+When you press `Start One Click Test`, the app:
 
-- verify the run has reached a terminal pass or fail state
-- verify the correct serial port is selected
-- verify the ST-LINK connection is present
-- review [Troubleshooting Guide](troubleshooting_guide.md)
+1. Uploads the Rite-Hite Connect test firmware
+2. Waits for the module to boot
+3. Sends `START_AUTO` to the fixture
+4. Polls the fixture status until the test completes
+5. Waits for the LED visual decision
+6. Exports the final CSV automatically
+
+### Before Starting One Click
+
+On the `One Click Test` page, confirm:
+
+- The fixture is detected
+- The programmer is detected
+- The start button is enabled
+
+### Running One Click
+
+1. Press `Start One Click Test`.
+2. Watch the progress rail and the Activity Log.
+3. Follow any technician prompt shown in the Activity Log.
+
+### One Click Progress Rail
+
+The One Click progress rail follows the real fixture stage:
+
+1. Upload Firmware
+2. Comms
+3. Digital Inputs
+4. Analog Inputs
+5. Digital Outputs
+6. Relay Outputs
+7. Buttons
+8. LEDs
+9. Extract Data
+
+Important behavior:
+
+- The current stage is shown in red.
+- Completed stages turn green.
+- The app updates when the STM32 changes stage.
+- The app is not using a fake timer or fixed delay to move the progress bar.
+
+### Technician Action During One Click
+
+The app still requires the technician to make the final LED decision on the fixture.
+
+When the fixture reaches the LED stage:
+
+1. The Activity Log shows a technician action prompt.
+2. Go to the fixture touchscreen.
+3. Press `LED's GOOD` or `LED's BAD`.
+
+### What One Click Locks While Running
+
+While One Click is active, the app blocks:
+
+- Manual extract
+- Manual test-firmware upload
+- Starting another One Click run
+
+This prevents the active run from being interrupted or exported early.
+
+## Desktop App Pages
+
+## File Explorer
+
+Use `File Explorer` to:
+
+- Confirm that a CSV was created
+- Search exported files by filename
+- Filter by result outcome
+- Open the exports folder
+- Change the exports folder
+- Reset to the default exports folder
+
+### Default Export Location
+
+By default, exports are stored in the app's `exports` folder. The export location can be changed in the app and is stored locally on the PC.
+
+### CSV Format
+
+Each exported CSV contains these columns:
+
+- Date and Time
+- Test name
+- Expected Result
+- Actual result
+- Pass/Fail
+
+File names use this pattern:
+
+`YYYY-MM-DD_HH-MM-SS_run<sequence>_<outcome>.csv`
+
+## Device Tools
+
+Use `Device Tools` for manual PC-side actions.
+
+### Available Actions
+
+- `Extract Data from Test Fixture`
+- `Upload Test Firmware`
+- `Upload Production Firmware`
+
+### Current Limitation
+
+`Upload Production Firmware` currently opens a `Coming Soon` message. It is not an active production operation yet.
+
+### Last Successful Operation
+
+The Device Tools page also shows the last successful export or last successful test-firmware upload recorded on that PC.
+
+## One Click Test
+
+Use this page when you want the desktop app to run the full workflow.
+
+It includes:
+
+- A connection-readiness card
+- A start button
+- The live progress rail
+
+## Activity Log
+
+Use the Activity Log to see:
+
+- Upload progress
+- Start and stop messages
+- One Click stage changes
+- LED technician prompts
+- Export completion
+- Error messages
+
+## Settings
+
+The app stores local station settings such as:
+
+- Language
+- Font size
+- Confirm before extract
+- Auto refresh on tab switch
+- Reduced motion
+- Dark mode preference
+- Export folder path
+
+The current supported interface languages are:
+
+- English
+- Spanish
+- Hmong
+
+## Keyboard Shortcuts
+
+The current desktop app includes these useful shortcuts:
+
+- `F5`: Refresh file list
+- `Ctrl+O`: Open exports folder
+- `Ctrl+E`: Extract data from the fixture
+- `Ctrl+U`: Upload test firmware
+- `Esc`: Exit fullscreen or maximized mode
+
+## What To Do On Pass
+
+If the run passes:
+
+1. Confirm the fixture shows `Test_Complete_Screen`, or confirm that One Click completed successfully.
+2. Confirm the CSV exists in `File Explorer`.
+3. Record the unit as passed according to plant procedure.
+
+## What To Do On Fail
+
+If the run fails:
+
+1. Record the fault code and failed step from `Fault_Screen`.
+2. Export the failed run.
+3. Use [troubleshooting_guide.md](troubleshooting_guide.md).
+4. Use [error_code_reference.md](error_code_reference.md) for exact fault meaning.
+5. Correct the issue before restarting the test.
 
 ## Operator Rules
 
-- Use `Begin AUTO` for normal production testing.
-- Stay at the fixture during the full run.
-- Do not ignore communication or reset failures.
-- Do not mark a unit as passed unless the fixture reaches `Test_Complete_Screen`.
-- Do not remove a failed unit before required information has been recorded.
-- Do not use the manual screen for production unless directed by engineering or maintenance.
+- Use `Begin AUTO` for normal production runs.
+- Use `Begin MANUAL` only for service or debug work.
+- Do not bypass communication, reset, or fault-check failures.
+- Do not mark a unit as passed unless the fixture completes successfully and the final LED decision is `GOOD`.
+- Do not remove a failed unit until the required failure information and CSV export have been captured.
+- Do not assume the production firmware upload button is active; it is not implemented yet.
 
-## When To Use The Supporting Docs
+## Related Documents
 
-- Use [Screen Guide](screen_guide.md) if you want a screen-by-screen explanation of what to expect.
-- Use [Troubleshooting Guide](troubleshooting_guide.md) if a run fails and you need action-oriented recovery steps.
-- Use [Error Code Reference](error_code_reference.md) if you need the exact meaning of a fault code.
-- Use [Test Procedure](test_procedure.md) for the formal detailed procedure and acceptance criteria.
-- Use [Preflight Checklist](preflight_checklist.md) before a shift or before a new run when setup is uncertain.
+- [preflight_checklist.md](preflight_checklist.md)
+- [screen_guide.md](screen_guide.md)
+- [test_procedure.md](test_procedure.md)
+- [troubleshooting_guide.md](troubleshooting_guide.md)
+- [error_code_reference.md](error_code_reference.md)

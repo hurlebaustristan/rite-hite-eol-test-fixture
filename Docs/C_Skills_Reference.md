@@ -1,857 +1,274 @@
-# C Programming Skills Reference
-
-A reference guide for AI-assisted C coding in embedded/STM32 projects.
-
----
-
-## Table of Contents
-
-1. [Data Types](#data-types)
-2. [Operators](#operators)
-3. [Control Flow](#control-flow)
-4. [Functions](#functions)
-5. [Pointers](#pointers)
-6. [Arrays and Strings](#arrays-and-strings)
-7. [Structs and Unions](#structs-and-unions)
-8. [Enumerations](#enumerations)
-9. [Preprocessor Directives](#preprocessor-directives)
-10. [Memory Management](#memory-management)
-11. [Bit Manipulation](#bit-manipulation)
-12. [Embedded C Patterns](#embedded-c-patterns)
-13. [Volatile and Const Qualifiers](#volatile-and-const-qualifiers)
-14. [Callbacks and Function Pointers](#callbacks-and-function-pointers)
-15. [Interrupt Service Routines (ISR)](#interrupt-service-routines)
-16. [Common STM32 HAL Patterns](#common-stm32-hal-patterns)
-17. [FreeRTOS Patterns](#freertos-patterns)
-18. [Error Handling](#error-handling)
-19. [Coding Best Practices](#coding-best-practices)
-
----
-
-## Data Types
-
-### Standard Types
-
-```c
-char        c = 'A';         // 1 byte, signed or unsigned
-int         i = 100;         // typically 4 bytes
-short       s = 300;         // 2 bytes
-long        l = 100000L;     // 4 bytes
-long long   ll = 1000000LL;  // 8 bytes
-float       f = 3.14f;       // 4 bytes
-double      d = 3.14159;     // 8 bytes
-```
-
-### Fixed-Width Types (stdint.h) — preferred in embedded
-
-```c
-#include <stdint.h>
-
-uint8_t   byte_val  = 0xFF;         // 0 to 255
-int8_t    signed8   = -128;         // -128 to 127
-uint16_t  word_val  = 0xFFFF;       // 0 to 65535
-int16_t   signed16  = -32768;
-uint32_t  dword_val = 0xFFFFFFFF;   // 0 to 4294967295
-int32_t   signed32  = -2147483648;
-uint64_t  qword_val = 0xFFFFFFFFFFFFFFFFULL;
-```
-
-### Boolean
-
-```c
-#include <stdbool.h>
-
-bool flag = true;
-bool done = false;
-```
-
----
-
-## Operators
-
-### Arithmetic
-
-```c
-int a = 10 + 3;   // 13
-int b = 10 - 3;   // 7
-int c = 10 * 3;   // 30
-int d = 10 / 3;   // 3   (integer division)
-int e = 10 % 3;   // 1   (modulo)
-```
-
-### Comparison
-
-```c
-==   // equal to
-!=   // not equal to
->    // greater than
-<    // less than
->=   // greater than or equal
-<=   // less than or equal
-```
-
-### Logical
-
-```c
-&&   // AND
-||   // OR
-!    // NOT
-```
-
-### Bitwise
-
-```c
-&    // AND
-|    // OR
-^    // XOR
-~    // NOT (complement)
-<<   // left shift
->>   // right shift
-```
-
-### Assignment Shortcuts
-
-```c
-x += 5;   // x = x + 5
-x -= 5;   // x = x - 5
-x *= 2;   // x = x * 2
-x /= 2;   // x = x / 2
-x %= 3;   // x = x % 3
-x &= 0xF0;
-x |= 0x0F;
-x ^= 0xFF;
-x <<= 1;
-x >>= 1;
-```
-
-### Ternary Operator
-
-```c
-int max = (a > b) ? a : b;
-```
-
----
-
-## Control Flow
-
-### if / else if / else
-
-```c
-if (x > 10) {
-    // ...
-} else if (x == 5) {
-    // ...
-} else {
-    // ...
-}
-```
-
-### switch / case
-
-```c
-switch (state) {
-    case STATE_IDLE:
-        // ...
-        break;
-    case STATE_RUN:
-        // ...
-        break;
-    default:
-        // ...
-        break;
-}
-```
-
-### for loop
-
-```c
-for (int i = 0; i < 10; i++) {
-    // ...
-}
-```
-
-### while loop
-
-```c
-while (condition) {
-    // ...
-}
-```
-
-### do-while loop
-
-```c
-do {
-    // executes at least once
-} while (condition);
-```
-
-### break and continue
-
-```c
-for (int i = 0; i < 10; i++) {
-    if (i == 5) break;      // exit loop
-    if (i % 2 == 0) continue; // skip to next iteration
-}
-```
-
----
-
-## Functions
-
-### Declaration and Definition
-
-```c
-// Declaration (prototype)
-int add(int a, int b);
-
-// Definition
-int add(int a, int b) {
-    return a + b;
-}
-```
-
-### void Function
-
-```c
-void reset_counter(void) {
-    counter = 0;
-}
-```
-
-### Passing by Pointer (modify caller's variable)
-
-```c
-void increment(int *value) {
-    (*value)++;
-}
-
-int x = 5;
-increment(&x);  // x is now 6
-```
-
-### Returning Multiple Values via Pointers
-
-```c
-void get_min_max(int *arr, int len, int *min, int *max) {
-    *min = arr[0];
-    *max = arr[0];
-    for (int i = 1; i < len; i++) {
-        if (arr[i] < *min) *min = arr[i];
-        if (arr[i] > *max) *max = arr[i];
-    }
-}
-```
-
-### Inline Functions
-
-```c
-static inline uint32_t clamp(uint32_t val, uint32_t lo, uint32_t hi) {
-    if (val < lo) return lo;
-    if (val > hi) return hi;
-    return val;
-}
-```
-
----
-
-## Pointers
-
-### Basics
-
-```c
-int  x   = 10;
-int *ptr = &x;       // ptr holds address of x
-int  val = *ptr;     // dereference: val = 10
-*ptr = 20;           // x is now 20
-```
-
-### Pointer Arithmetic
-
-```c
-uint8_t buf[4] = {0x01, 0x02, 0x03, 0x04};
-uint8_t *p = buf;
-p++;          // points to buf[1]
-p += 2;       // points to buf[3]
-```
-
-### Pointer to const vs const pointer
-
-```c
-const int *p1 = &x;    // can't modify *p1, but p1 can change
-int * const p2 = &x;   // can modify *p2, but p2 can't change
-const int * const p3 = &x; // neither can change
-```
-
-### NULL Pointer Check
-
-```c
-if (ptr != NULL) {
-    *ptr = 5;
-}
-```
-
----
-
-## Arrays and Strings
-
-### Arrays
-
-```c
-int arr[5] = {1, 2, 3, 4, 5};
-int matrix[3][3] = {{1,2,3},{4,5,6},{7,8,9}};
-
-// Array passed to function (decays to pointer)
-void process(uint8_t *data, uint16_t len);
-```
-
-### Strings (null-terminated char arrays)
-
-```c
-#include <string.h>
-
-char name[32] = "TestFixture";
-
-strlen(name);               // length (not counting '\0')
-strcpy(dest, src);          // copy string
-strncpy(dest, src, n);      // safe copy
-strcat(dest, src);          // concatenate
-strcmp(s1, s2);             // 0 if equal
-snprintf(buf, size, fmt);   // safe formatted string
-```
-
----
-
-## Structs and Unions
-
-### Struct
-
-```c
-typedef struct {
-    uint8_t  id;
-    uint16_t voltage_mv;
-    float    temperature;
-    bool     pass;
-} TestResult_t;
+# Project Firmware And Maintenance Reference
 
-TestResult_t result = {0};
-result.id = 1;
-result.voltage_mv = 3300;
+This file replaces the old generic C-language cheat sheet with a project-specific maintenance reference for the EOL test fixture.
 
-// Pointer to struct
-TestResult_t *pResult = &result;
-pResult->voltage_mv = 3300;   // arrow operator
-```
-
-### Union (shares memory)
-
-```c
-typedef union {
-    uint32_t word;
-    uint8_t  bytes[4];
-} Word32_t;
+Use it when you need to answer questions such as:
 
-Word32_t data;
-data.word = 0xDEADBEEF;
-// data.bytes[0] = 0xEF (little-endian)
-```
-
----
-
-## Enumerations
-
-```c
-typedef enum {
-    STATE_IDLE = 0,
-    STATE_TESTING,
-    STATE_PASS,
-    STATE_FAIL,
-    STATE_COUNT   // useful for array sizing
-} TestState_t;
+- Which file owns a given part of the fixture behavior
+- Where to change protocol messages, fault codes, or timeouts
+- How the TouchGFX UI is tied into the test engines
+- Which desktop-app file owns export, settings, or One Click behavior
 
-TestState_t currentState = STATE_IDLE;
-```
+For the full architectural picture, see [Project_Knowledge_Base.md](Project_Knowledge_Base.md).
 
----
+## 1. File Ownership Map
 
-## Preprocessor Directives
+## STM32 Core Firmware
 
-### Macros
+| File Area | Responsibility |
+| --- | --- |
+| `Core/Inc/eol_test_protocol.h` | Shared protocol strings, timing constants, and `EOL_ERR_*` fault codes |
+| `Core/Src/comm_test.c` | Communication, reset, and fault-check state machine |
+| `Core/Src/di_test.c` | Digital-input stage |
+| `Core/Src/ai_test.c` | Analog-input stage |
+| `Core/Src/output_test.c` | Output and relay stage |
+| `Core/Src/button_led_test.c` | Automatic button sequence and final LED decision wait |
+| `Core/Src/eol_report.c` | Run report rows and report state machine |
+| `Core/Src/export_uart.c` | `EXPORT_STATUS`, `EXPORT_RUN`, and `START_AUTO` service |
+| `Core/Src/auto_test.c` | Auto-test start flag and phase tracking |
+| `Core/Src/gpio_config.c` | Fixture GPIO ownership and DAC / mux support |
+| `Core/Src/uart_config.c` | UART4 transport to the ESP32 |
+
+## TouchGFX Layer
+
+| File Area | Responsibility |
+| --- | --- |
+| `TouchGFX/gui/src/model/Model.cpp` | Tick loop, engine start calls, auto-test phase updates |
+| `TouchGFX/gui/src/common/FrontendApplication.cpp` | Shared fault info and forced screen transition helpers |
+| `TouchGFX/gui/src/*Presenter.cpp` | Per-screen activation and interaction wiring |
+| `TouchGFX/gui/src/containers/*.cpp` | UI response to test progress, pass, and fail |
+| `TouchGFX/gui/src/buttons_leds_screen_screen/Buttons_LEDs_ScreenView.cpp` | `LED's GOOD` and `LED's BAD` actions |
+
+## Desktop App
+
+| File Area | Responsibility |
+| --- | --- |
+| `Export_Software/main.py` | UI, One Click worker, progress rail, activity log, page layout |
+| `Export_Software/serial_client.py` | Fixture serial protocol client |
+| `Export_Software/esp32_uploader.py` | Rite-Hite Connect test-firmware upload path |
+| `Export_Software/storage.py` | CSV writing, settings, last-successful-operation persistence |
+| `Export_Software/translations.py` | English, Spanish, and Hmong strings |
+| `Export_Software/theme.py` | Visual styling |
+
+## ESP32 Test Firmware
+
+| File Area | Responsibility |
+| --- | --- |
+| `ArduinoIDE/EOL_RiteHite_Final/EOL_RiteHite_Final.ino` | Protocol token handling, expander control, analog reads, relay and button acknowledgments |
+
+## 2. Common Change Map
 
-```c
-#define MAX_SAMPLES     256
-#define LED_PIN         GPIO_PIN_5
-#define PIN_HIGH(port, pin)   HAL_GPIO_WritePin(port, pin, GPIO_PIN_SET)
-#define PIN_LOW(port, pin)    HAL_GPIO_WritePin(port, pin, GPIO_PIN_RESET)
-```
+## If You Need To Change A Fault Code
+
+Update:
 
-### Macro with do-while for multi-statement safety
+1. `Core/Inc/eol_test_protocol.h`
+2. The stage engine that raises the code
+3. Any TouchGFX fault-text mapping for that stage
+4. `Docs/error_code_reference.md`
+5. `Docs/troubleshooting_guide.md` if operator action changes
 
-```c
-#define LOG_ERROR(msg) do { \
-    uart_print("[ERR] ");   \
-    uart_print(msg);        \
-    uart_print("\r\n");     \
-} while(0)
-```
+## If You Need To Change The One Click Progress Rail
 
-### Conditional Compilation
+Update:
 
-```c
-#ifdef DEBUG
-    #define DEBUG_PRINT(x) uart_print(x)
-#else
-    #define DEBUG_PRINT(x)
-#endif
+1. STM32 auto-test phase ownership in `auto_test.c`
+2. Phase transitions in `Model.cpp`
+3. Status parsing in `serial_client.py`
+4. Progress mapping in `main.py`
+5. `Docs/screen_guide.md` and `Docs/user_manual.md`
 
-#ifndef MY_HEADER_H
-#define MY_HEADER_H
-// header content
-#endif
-```
+## If You Need To Change Export Behavior
 
-### include guards
+Update:
 
-```c
-#ifndef APP_CONFIG_H
-#define APP_CONFIG_H
+1. `eol_report.c` if report content changes
+2. `export_uart.c` if protocol framing changes
+3. `serial_client.py` if desktop parsing changes
+4. `storage.py` if CSV structure changes
+5. Docs covering export format and operator workflow
 
-// declarations...
+## If You Need To Change The Button / LED Stage
 
-#endif /* APP_CONFIG_H */
-```
+Update:
 
----
+1. `button_led_test.c`
+2. `Model.cpp`
+3. `Buttons_LEDs_ScreenPresenter.cpp`
+4. `Buttons_LEDs_ScreenView.cpp`
+5. `export_uart.c` if visual-wait semantics change
+6. One Click docs if the technician action changes
 
-## Memory Management
+## 3. Current Protocol Quick Reference
 
-### Stack vs Heap
+## STM32 To ESP32 Core Tokens
 
-In embedded systems, **prefer stack (local variables) and static allocation** over dynamic heap allocation.
+- `PING`
+- `READY`
+- `DIxTEST`
+- `AIx_LOW_REQ`
+- `AIx_MID_REQ`
+- `AIx_HIGH_REQ`
+- `K1_ON`
+- `K1_OFF`
+- `K2_ON`
+- `K2_OFF`
+- `BTN_BEGIN`
+- `LED_BEGIN`
+- `LED_ROTATE_250`
+- `LED_STOP_ALL_ON`
 
-```c
-// Stack allocation (preferred in embedded)
-uint8_t buffer[128];
+## Expected ESP32 Replies
 
-// Static allocation (persists across calls)
-static uint32_t call_count = 0;
+- `PONG`
+- `OK`
+- `DIxOK`
+- `DIxFAIL`
+- `OK_AI...:<volts>`
+- `OK_K1_ON`, `OK_K1_OFF`, `OK_K2_ON`, `OK_K2_OFF`
+- `OK_BTN_...`
+- negative button acknowledgments such as `BTN_USR0_PRESS_HIGH`
+- `OK_LED_BEGIN`
+- `OK_LED_ROTATE_250`
+- `OK_LED_STOP_ALL_ON`
 
-// Heap (use with extreme caution in embedded)
-#include <stdlib.h>
-uint8_t *buf = (uint8_t *)malloc(128);
-if (buf != NULL) {
-    // use buf
-    free(buf);
-}
-```
-
-### memset / memcpy / memmove
+## Desktop App To Fixture Tokens
 
-```c
-#include <string.h>
+- `START_AUTO`
+- `EXPORT_STATUS`
+- `EXPORT_RUN|<sequence>`
 
-memset(buffer, 0, sizeof(buffer));          // zero out
-memcpy(dest, src, num_bytes);               // copy (no overlap)
-memmove(dest, src, num_bytes);              // copy (safe overlap)
-int result = memcmp(buf1, buf2, num_bytes); // compare
-```
+## Fixture To Desktop App Replies
 
----
+- `AUTO_STARTED`
+- `AUTO_ERROR|ALREADY_RUNNING`
+- `STATUS|...`
+- `EXPORT_BEGIN|...`
+- `ROW|...`
+- `EXPORT_END|...`
+- `EXPORT_ERROR|...`
 
-## Bit Manipulation
+## 4. Current Test Ownership Notes
 
-```c
-uint32_t reg = 0;
+## Communication / Reset / Fault Check
 
-// Set bit n
-reg |= (1UL << n);
+- Single state machine in `comm_test.c`
+- Fault family: `0x01xx`, `0x02xx`, `0x03xx`
 
-// Clear bit n
-reg &= ~(1UL << n);
+## Digital Inputs
 
-// Toggle bit n
-reg ^= (1UL << n);
+- 12 channels
+- Expected result text: `High then Low`
+- Fault family: `0x04xx`
 
-// Test bit n
-if (reg & (1UL << n)) { /* bit is set */ }
+## Analog Inputs
 
-// Extract bits [hi:lo]
-uint32_t field = (reg >> lo) & ((1UL << (hi - lo + 1)) - 1);
+- 4 channels
+- 3 levels per channel
+- Fault family: `0x05xx`
 
-// Create bitmask for bits [hi:lo]
-#define BITMASK(hi, lo)  (((1UL << ((hi)-(lo)+1))-1) << (lo))
-```
+## Outputs
 
----
+- DO1 and DO2 are temporary auto-pass rows
+- Relay verification is live
+- Fault family: `0x06xx`
 
-## Embedded C Patterns
+## Buttons / LEDs
 
-### Register Access (direct)
+- Button actuation is automatic
+- LED visual decision is manual
+- Fault family: `0x07xx`
 
-```c
-// Using CMSIS macros (preferred with STM32 HAL)
-GPIOA->ODR |=  GPIO_ODR_OD5;    // set PA5
-GPIOA->ODR &= ~GPIO_ODR_OD5;    // clear PA5
-GPIOA->ODR ^=  GPIO_ODR_OD5;    // toggle PA5
-```
+## 5. TouchGFX Integration Rules
 
-### Circular Buffer
+The current project uses the TouchGFX model as the coordinator between the non-blocking test engines and the screen presenters.
 
-```c
-#define BUF_SIZE 64
+Practical rules:
 
-typedef struct {
-    uint8_t  data[BUF_SIZE];
-    uint16_t head;
-    uint16_t tail;
-    uint16_t count;
-} CircBuf_t;
+- Start engines from presenters through model methods
+- Surface per-stage progress back through the model or container callbacks
+- Keep the report and fault ownership in the firmware engine, not in the container
+- Use `Fault_Screen` only after fault data has been fully populated
+- Keep One Click phase reporting aligned with actual engine state, not UI guesses
 
-void circbuf_push(CircBuf_t *cb, uint8_t byte) {
-    if (cb->count < BUF_SIZE) {
-        cb->data[cb->head] = byte;
-        cb->head = (cb->head + 1) % BUF_SIZE;
-        cb->count++;
-    }
-}
+## 6. Desktop App Integration Rules
 
-bool circbuf_pop(CircBuf_t *cb, uint8_t *byte) {
-    if (cb->count == 0) return false;
-    *byte = cb->data[cb->tail];
-    cb->tail = (cb->tail + 1) % BUF_SIZE;
-    cb->count--;
-    return true;
-}
-```
+## Serial Client
 
-### State Machine
+`serial_client.py` is the source of truth for the desktop app's fixture protocol parsing.
 
-```c
-typedef void (*StateHandler_t)(void);
+If the export UART format changes, update this file first.
 
-void state_idle(void)    { /* ... */ }
-void state_testing(void) { /* ... */ }
-void state_pass(void)    { /* ... */ }
-void state_fail(void)    { /* ... */ }
+## Storage
 
-StateHandler_t stateTable[] = {
-    state_idle,
-    state_testing,
-    state_pass,
-    state_fail
-};
+`storage.py` owns:
 
-// In main loop:
-stateTable[currentState]();
-```
+- exports directory selection
+- CSV column names
+- settings persistence
+- last successful operation persistence
 
----
+## One Click
 
-## Volatile and Const Qualifiers
+`main.py` owns:
 
-```c
-// volatile: tells compiler not to optimize away reads/writes
-// Used for hardware registers, ISR-shared variables
-volatile uint32_t tick_count = 0;
-volatile bool     data_ready = false;
+- the One Click worker
+- the app-side phase mapping
+- live Activity Log updates
+- UI lockouts during One Click
 
-// const: value cannot be modified
-const uint8_t DEVICE_ADDR = 0x48;
+The desktop app must continue to treat `WAITING_VISUAL` as a real stop point that requires a technician action on the fixture.
 
-// Constant data in flash (embedded)
-const uint8_t lookup_table[256] = { /* ... */ };
+## 7. Safe Change Checklist
 
-// Pointer to volatile hardware register
-volatile uint32_t * const GPIOA_ODR = (volatile uint32_t *)0x48000014;
-```
+Before committing a behavior change, ask:
 
----
+- Does it change a protocol token?
+- Does it change a timing constant?
+- Does it change what the operator must do?
+- Does it change what One Click displays or blocks?
+- Does it change what gets written to CSV?
+- Does it change a fault code or fault text?
 
-## Callbacks and Function Pointers
+If the answer is yes to any of these, update the matching docs in `Docs`.
 
-```c
-// Function pointer type
-typedef void (*Callback_t)(uint8_t event);
+## 8. Current Known Constraints
 
-// Register and call
-Callback_t on_complete = NULL;
+- Production firmware upload is not implemented in the desktop app.
+- Digital Output 1 and Digital Output 2 are not yet real validated output tests in the fixture flow.
+- The exported CSV contains human-readable test rows but not a raw fault-code column.
 
-void register_callback(Callback_t cb) {
-    on_complete = cb;
-}
+## 9. Recommended Validation After Changes
 
-void trigger_event(uint8_t ev) {
-    if (on_complete != NULL) {
-        on_complete(ev);
-    }
-}
+## For STM32 Firmware Changes
 
-// Usage
-void my_handler(uint8_t event) {
-    // handle event
-}
+- Build the TouchGFX target
+- Confirm the expected screen transitions still occur
+- Confirm `Fault_Screen` text still matches the new behavior
+- Confirm export still works for pass and fail
 
-register_callback(my_handler);
-```
+## For ESP32 Protocol Changes
 
----
+- Confirm the token strings still match the STM32 expectations exactly
+- Confirm negative acknowledgments still map cleanly to fault codes
+- Confirm analog reply formatting still matches STM32 parsing
 
-## Interrupt Service Routines
+## For Desktop App Changes
 
-```c
-// ISR in STM32 (defined in stm32u5xx_it.c)
-void TIM6_DAC_IRQHandler(void) {
-    HAL_TIM_IRQHandler(&htim6);
-}
+- Run `py -m py_compile` on the app modules
+- Verify manual extract
+- Verify test-firmware upload
+- Verify One Click start, live progress, LED wait, and final export
 
-// HAL callback (called from HAL IRQ handler)
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-    if (htim->Instance == TIM6) {
-        tick_count++;  // volatile variable
-    }
-}
+## 10. Documentation Rule
 
-// Rules for ISRs:
-// - Keep them SHORT and FAST
-// - No blocking calls (no HAL_Delay)
-// - Use volatile for shared variables
-// - Set flags; process in main loop or RTOS task
-```
+Do not leave docs describing old behavior when the code has moved on.
 
----
+For this project, documentation is considered part of the deliverable whenever any of these change:
 
-## Common STM32 HAL Patterns
-
-### GPIO
-
-```c
-// Read pin
-GPIO_PinState state = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0);
-
-// Write pin
-HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
-HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
-
-// Toggle
-HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
-```
-
-### UART
-
-```c
-// Transmit (blocking)
-HAL_UART_Transmit(&huart2, (uint8_t *)buf, len, HAL_MAX_DELAY);
-
-// Receive (blocking)
-HAL_UART_Receive(&huart2, (uint8_t *)buf, len, timeout_ms);
-
-// Transmit (interrupt-driven)
-HAL_UART_Transmit_IT(&huart2, (uint8_t *)buf, len);
-
-// Callback
-void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart) {
-    if (huart->Instance == USART2) {
-        tx_done = true;
-    }
-}
-```
-
-### SPI
-
-```c
-// Transmit and Receive (full-duplex)
-HAL_SPI_TransmitReceive(&hspi1, tx_buf, rx_buf, len, timeout_ms);
-
-// Transmit only
-HAL_SPI_Transmit(&hspi1, tx_buf, len, timeout_ms);
-
-// Chip select control (manual NSS)
-HAL_GPIO_WritePin(CS_GPIO_Port, CS_Pin, GPIO_PIN_RESET); // CS LOW
-HAL_SPI_Transmit(&hspi1, tx_buf, len, HAL_MAX_DELAY);
-HAL_GPIO_WritePin(CS_GPIO_Port, CS_Pin, GPIO_PIN_SET);   // CS HIGH
-```
-
-### I2C
-
-```c
-// Write to device register
-HAL_I2C_Mem_Write(&hi2c1, dev_addr << 1, reg_addr, I2C_MEMADD_SIZE_8BIT, data, len, timeout);
-
-// Read from device register
-HAL_I2C_Mem_Read(&hi2c1, dev_addr << 1, reg_addr, I2C_MEMADD_SIZE_8BIT, data, len, timeout);
-```
-
-### Delay
-
-```c
-HAL_Delay(100);  // 100 ms blocking delay
-// In RTOS context use: osDelay(100);
-```
-
----
-
-## FreeRTOS Patterns
-
-```c
-#include "FreeRTOS.h"
-#include "task.h"
-#include "queue.h"
-#include "semphr.h"
-
-// Create task
-xTaskCreate(vMyTask, "MyTask", 256, NULL, osPriorityNormal, &taskHandle);
-
-// Task function template
-void vMyTask(void *argument) {
-    for (;;) {
-        // do work
-        osDelay(10);  // yield for 10 ms
-    }
-}
-
-// Queue send/receive
-QueueHandle_t xQueue = xQueueCreate(10, sizeof(uint32_t));
-
-uint32_t value = 42;
-xQueueSend(xQueue, &value, portMAX_DELAY);
-
-uint32_t received;
-xQueueReceive(xQueue, &received, portMAX_DELAY);
-
-// Mutex
-SemaphoreHandle_t xMutex = xSemaphoreCreateMutex();
-
-xSemaphoreTake(xMutex, portMAX_DELAY);
-// critical section
-xSemaphoreGive(xMutex);
-
-// Semaphore from ISR
-BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-xSemaphoreGiveFromISR(xSemaphore, &xHigherPriorityTaskWoken);
-portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
-```
-
----
-
-## Error Handling
-
-```c
-// HAL status checking
-HAL_StatusTypeDef status;
-status = HAL_SPI_Transmit(&hspi1, buf, len, 100);
-if (status != HAL_OK) {
-    // handle error
-    Error_Handler();
-}
-
-// Return code pattern
-typedef enum {
-    APP_OK    = 0,
-    APP_ERROR = 1,
-    APP_TIMEOUT = 2
-} AppStatus_t;
-
-AppStatus_t read_sensor(float *out) {
-    if (out == NULL) return APP_ERROR;
-    // ...
-    return APP_OK;
-}
-
-// Assert macro (debug only)
-#ifdef DEBUG
-    #define ASSERT(expr) do { if (!(expr)) { Error_Handler(); } } while(0)
-#else
-    #define ASSERT(expr)
-#endif
-```
-
----
-
-## Coding Best Practices
-
-### Naming Conventions
-
-```
-Variables:    camelCase       e.g. sampleCount, isReady
-Constants:    UPPER_SNAKE     e.g. MAX_RETRIES, DEFAULT_TIMEOUT
-Types:        PascalCase_t    e.g. TestResult_t, AppState_t
-Functions:    lower_snake     e.g. read_adc(), send_packet()
-Macros:       UPPER_SNAKE     e.g. BIT_SET(), PIN_HIGH()
-File-private: static prefix   e.g. static void helper_func(void)
-```
-
-### Header File Template
-
-```c
-#ifndef MODULE_NAME_H
-#define MODULE_NAME_H
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#include <stdint.h>
-#include <stdbool.h>
-
-/* Public defines */
-#define MODULE_VERSION   1
-
-/* Public types */
-typedef struct { /* ... */ } ModuleData_t;
-
-/* Public function prototypes */
-void     MODULE_Init(void);
-bool     MODULE_Process(ModuleData_t *data);
-uint32_t MODULE_GetStatus(void);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* MODULE_NAME_H */
-```
-
-### Source File Template
-
-```c
-/* Includes */
-#include "module_name.h"
-
-/* Private defines */
-#define INTERNAL_CONST   100
-
-/* Private types */
-
-/* Private variables */
-static uint32_t s_counter = 0;
-
-/* Private function prototypes */
-static void helper(void);
-
-/* Public functions */
-void MODULE_Init(void) {
-    s_counter = 0;
-}
-
-/* Private functions */
-static void helper(void) {
-    /* ... */
-}
-```
-
-### General Rules
-
-- Always initialize variables before use.
-- Use `sizeof()` instead of hardcoded sizes.
-- Use `static` for file-scope variables and private functions.
-- Avoid magic numbers — use named constants or enums.
-- Check return values of HAL functions.
-- Never use `HAL_Delay()` inside ISRs or RTOS tasks (use `osDelay()`).
-- Keep functions small and single-purpose.
-- Comment non-obvious logic, not what is obvious from the code.
-- Prefer `uint32_t` over `unsigned int` in embedded code for clarity.
-- Use `#pragma once` or include guards in every header.
-
----
-
-*Reference maintained for AI-assisted development of the EOL TestFixture project.*
+- fixture workflow
+- operator actions
+- export protocol
+- One Click behavior
+- active fault codes
+- hardware ownership

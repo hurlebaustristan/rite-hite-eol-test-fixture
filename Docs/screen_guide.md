@@ -1,197 +1,320 @@
 # EOL Test Fixture Screen Guide
 
-## Purpose
+This guide explains what the technician sees on the fixture touchscreen and in the Windows desktop app, and what action is required at each point.
 
-This guide explains what the operator sees on each main screen in the EOL fixture user interface and what action, if any, is required.
+Use this with [user_manual.md](user_manual.md), [test_procedure.md](test_procedure.md), and [troubleshooting_guide.md](troubleshooting_guide.md).
 
-Use this guide together with [User Manual](user_manual.md), [Troubleshooting Guide](troubleshooting_guide.md), and [Error Code Reference](error_code_reference.md).
+## Color Meaning
 
-## Screen Color Meaning
-
-The screen colors are used as status indicators during the run.
+### Fixture Touchscreen
 
 | Color | Meaning |
 | --- | --- |
-| Black | Item is pending or not yet completed |
-| Yellow | Operator action is required now |
-| Green | Item or stage passed |
-| Red | Item or stage failed |
+| Black | Pending or not yet completed |
+| Yellow | Active item or operator-attention state |
+| Green | Passed |
+| Red | Failed |
+
+### Desktop App One Click Progress Rail
+
+| Color | Meaning |
+| --- | --- |
+| Red | Current active One Click stage |
+| Green | Completed stage |
+| Gray | Not started yet |
+
+## Fixture Touchscreen Screens
 
 ## Start Screen
 
 ### Purpose
 
-The start screen is the entry point to the fixture.
+Entry point to the fixture.
 
-### What The Operator Does
+### What You See
 
-- Select `Begin AUTO` for the normal production test sequence.
-- Do not select `Begin MANUAL` for normal production unless engineering or maintenance has instructed you to use the manual service screen.
+- `Begin AUTO`
+- `Begin MANUAL`
+
+### What You Do
+
+- Press `Begin AUTO` for the normal production test.
+- Press `Begin MANUAL` only for service, debugging, or engineering checks.
 
 ### What Happens Next
 
-- `Begin AUTO` sends the fixture to `Comm_Reset_Screen`.
-- `Begin MANUAL` sends the fixture to `Test_GPIO_Screen`, which is intended for manual or service use rather than standard operator workflow.
+- `Begin AUTO` enters `Comm_Reset_Screen`.
+- `Begin MANUAL` enters `Test_GPIO_Screen`.
 
 ## Comm_Reset_Screen
 
 ### Purpose
 
-This screen runs the first three automated stages:
+Runs the first three fixture-controlled stages:
 
 - Communication
 - MCU Reset
 - Fault Check
 
-### What The Operator Sees
+### What You See
 
-- Stage labels begin in black.
-- A passing stage turns green.
-- A failing stage turns red before the system goes to `Fault_Screen`.
+- The stage labels update as each sub-stage passes or fails.
+- The progress bar advances through the three sub-stages.
 
-### What The Operator Does
+### What You Do
 
-- Observe the screen.
-- Wait for the fixture to finish the sequence automatically.
-- Do not disconnect the DUT or restart the run during this stage.
+- Observe only.
+- Do not disconnect the DUT, fixture USB, or programmer during this stage.
 
 ### Result
 
-- If all three stages pass, the fixture moves to `Inputs_Screen`.
-- If any stage fails, the fixture moves to `Fault_Screen`.
+- Pass: fixture advances to `Inputs_Screen`
+- Fail: fixture transitions to `Fault_Screen`
 
 ## Inputs_Screen
 
 ### Purpose
 
-This screen runs:
+Runs:
 
-- Digital input verification
-- Analog input verification
+- Digital Inputs
+- Analog Inputs
 
-### What The Operator Sees
+### What You See
 
-- Digital input labels turn green as they pass.
-- Analog input labels turn green as they pass.
-- The progress bar advances through the stage.
-- A failing item turns red and the fixture transfers to `Fault_Screen`.
+- Individual input items turn green as they pass.
+- The progress bar first covers digital inputs, then analog inputs.
 
-### What The Operator Does
+### What You Do
 
-- Observe progress only.
-- Do not interrupt the run while digital and analog checks are active.
+- Observe only.
+- Do not interrupt the run.
 
 ### Result
 
-- If all input checks pass, the fixture moves to `Outputs_Screen`.
-- If any check fails, the fixture moves to `Fault_Screen`.
+- Pass: fixture advances to `Outputs_Screen`
+- Fail: fixture transitions to `Fault_Screen`
 
 ## Outputs_Screen
 
 ### Purpose
 
-This screen runs the outputs stage.
+Runs:
 
-### What The Operator Sees
+- Digital Outputs
+- Relay Outputs
 
-- `Digital Outputs` and `Relay Outputs` are displayed as separate groups.
-- Individual labels turn green as items pass.
-- The progress bar advances through the stage.
+### What You See
 
-### Current Revision Behavior
+- `Digital Outputs` and `Relay Outputs` are shown as separate sections.
+- Relay items update as K1 and K2 ON/OFF checks run.
 
-- Digital Output 1 and Digital Output 2 are automatic pass items in the current revision.
-- Relay checks remain active and can still fail.
+### Current Revision Note
 
-### What The Operator Does
+- Digital Output 1 and Digital Output 2 are temporary auto-pass report rows.
+- Relay verification is live and can still fail.
 
-- Observe progress only.
-- Allow the screen to complete automatically.
+### What You Do
+
+- Observe only.
 
 ### Result
 
-- If all output checks pass, the fixture moves to `Buttons_LEDs_Screen`.
-- If a relay phase fails, the fixture moves to `Fault_Screen`.
+- Pass: fixture advances to `Buttons_LEDs_Screen`
+- Fail: fixture transitions to `Fault_Screen`
 
 ## Buttons_LEDs_Screen
 
 ### Purpose
 
-This screen runs the final operator-assisted stage.
+Runs the final automatic button sequence and the final manual LED decision.
 
-### What The Operator Sees
+### What You See
 
-- The button labels start in black.
-- The active button label turns yellow when it is ready to be pressed.
-- A completed button turns green.
-- During the LED visual check, the LED decision buttons become active.
+- Button labels for `USR_0`, `PNL_0`, `PNL_1`, `PNL_2`, and `PNL_3`
+- LED image / animation area
+- `LED's BAD`
+- `LED's GOOD`
 
-### What The Operator Does
+### Important Current Behavior
 
-1. Watch for the yellow button label.
-2. Press the indicated button.
-3. Release the same button within the allowed time.
-4. Repeat for all prompted buttons.
-5. Observe the LED pattern when the visual check begins.
-6. Press `LED's GOOD` if the LED behavior is correct.
-7. Press `LED's BAD` if the LED behavior is not correct.
+- The fixture automatically drives the button sequence by toggling its output lines and checking the ESP32 replies.
+- The technician does not manually press the hardware button sequence during the normal automatic test.
+- The technician only makes the final visual LED decision.
+
+### What You Do
+
+1. Watch the button stage complete automatically.
+2. When the LED review begins, look at the LED pattern on the fixture.
+3. Press `LED's GOOD` if the LED behavior is correct.
+4. Press `LED's BAD` if the LED behavior is incorrect.
 
 ### Result
 
-- If all button checks pass and `LED's GOOD` is selected, the fixture moves to `Test_Complete_Screen`.
-- If there is a timeout, invalid reply, no reply, or operator rejection, the fixture moves to `Fault_Screen`.
+- `LED's GOOD`: fixture advances to `Test_Complete_Screen`
+- `LED's BAD`: fixture transitions to `Fault_Screen`
 
 ## Fault_Screen
 
 ### Purpose
 
-This is the terminal fail screen for the active run.
+Final fail screen for the current run.
 
-### What The Operator Sees
+### What You See
 
-The screen shows:
+- Hex error code
+- Failed test or step name
+- Expected value or condition
+- Actual value or condition
 
-- the hex error code
-- the failed test or step name
-- the expected value or condition
-- the actual value or condition
+### What You Do
 
-### What The Operator Does
-
-1. Record the error code.
-2. Record the failed step.
-3. Record the expected and actual values if required by local process.
-4. Use [Troubleshooting Guide](troubleshooting_guide.md) and [Error Code Reference](error_code_reference.md).
-5. Export the failed run.
+1. Record the error information required by your process.
+2. Use [error_code_reference.md](error_code_reference.md) and [troubleshooting_guide.md](troubleshooting_guide.md).
+3. Export the failed run.
 
 ## Test_Complete_Screen
 
 ### Purpose
 
-This is the terminal pass screen for the active run.
+Final pass screen for the current run.
 
-### What The Operator Does
+### What You Do
 
-1. Record the unit as passed.
-2. Export the completed run.
-3. Confirm the CSV file was created.
+1. Record the board or unit as passed.
+2. Export the run, or confirm that One Click exported it automatically.
 
 ## Test_GPIO_Screen
 
 ### Purpose
 
-This is the manual or service screen reached from `Begin MANUAL`.
+Manual service and debug screen reached from `Begin MANUAL`.
 
-### Operator Guidance
+### What You Can Control
 
-- This screen is not part of the normal automatic production flow.
-- Use it only when instructed by engineering, maintenance, or a debug procedure.
-- Do not use it as a substitute for the automatic production test.
+- DI1 through DI12 outputs
+- AUX0 through AUX3 button outputs
+- USR, MCU, and FAULT control outputs
+- DACA0, DACA1, and DACEN
+- DAC output slider
 
-## Related Documents
+### What You Can Read
 
-- [User Manual](user_manual.md)
-- [Troubleshooting Guide](troubleshooting_guide.md)
-- [Preflight Checklist](preflight_checklist.md)
-- [Error Code Reference](error_code_reference.md)
-- [Test Procedure](test_procedure.md)
+- K1NO, K1NC, K2NO, K2NC, DO1, and DO2 input readback
+
+### What You Do
+
+- Use only for maintenance, debug, or engineering-directed verification.
+
+## Desktop App Screens
+
+## File Explorer
+
+### Purpose
+
+Shows exported CSV files and lets the technician manage the export folder.
+
+### What You See
+
+- File list of exported CSVs
+- Search box
+- Outcome filter
+- Buttons to refresh, open the folder, change the folder, or reset to default
+
+### What You Do
+
+- Confirm the expected CSV exists after export.
+- Open or sort historical exports as needed.
+
+## Device Tools
+
+### Purpose
+
+Provides the manual PC-side operations.
+
+### What You See
+
+- Connection Readiness card
+- Last Successful Operation card
+- `Extract Data from Test Fixture`
+- `Upload Test Firmware`
+- `Upload Production Firmware`
+
+### What You Do
+
+- Use `Extract Data from Test Fixture` after a normal touchscreen run to save the latest pass or fail report as a CSV.
+- Use `Upload Test Firmware` to load the fixed Rite-Hite Connect test firmware to the module.
+- Do not expect `Upload Production Firmware` to work yet; it currently shows a `Coming Soon` message.
+
+## One Click Test
+
+### Purpose
+
+Runs the full PC-assisted workflow in one action.
+
+### What You See
+
+- A connection-readiness card for the fixture and programmer
+- A large `Start One Click Test` button
+- A live progress rail:
+  1. Upload Firmware
+  2. Comms
+  3. Digital Inputs
+  4. Analog Inputs
+  5. Digital Outputs
+  6. Relay Outputs
+  7. Buttons
+  8. LEDs
+  9. Extract Data
+
+### What You Do
+
+1. Confirm the fixture and programmer are detected.
+2. Press `Start One Click Test`.
+3. Watch the Activity Log and progress rail.
+4. When the app indicates technician action is required, go to the fixture and press `LED's GOOD` or `LED's BAD`.
+5. Confirm the CSV is saved at the end.
+
+### How It Behaves
+
+- The progress rail follows the real STM32 fixture phase, not a fake timer.
+- The current phase is red.
+- The previous phase turns green when the next phase starts.
+- Manual extract and manual test-firmware upload are locked while One Click is running.
+
+## Activity Log
+
+### Purpose
+
+Shows the detailed live log for uploads, One Click progress, prompts, and exports.
+
+### What You Use It For
+
+- Confirm what step is active
+- See upload progress
+- See export completion
+- See One Click prompts such as the LED visual confirmation request
+
+## Settings
+
+### Purpose
+
+Stores local app preferences.
+
+### Available Settings
+
+- Language
+- Font size
+- Confirm before extract
+- Auto refresh on tab switch
+- Reduced motion
+- Dark mode setting
+- Custom exports folder path
+
+### Language Support
+
+The app includes:
+
+- English
+- Spanish
+- Hmong
