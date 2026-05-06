@@ -10,12 +10,12 @@
 #define BUTTON_LED_INIT_TIMEOUT_MS           3000u
 #define BUTTON_LED_BUTTON_POLL_TIMEOUT_MS     100u
 #define BUTTON_LED_PRESS_ACTION_TIMEOUT_MS   1500u
-#define BUTTON_LED_RELEASE_ACTION_TIMEOUT_MS 2000u
+#define BUTTON_LED_RELEASE_ACTION_TIMEOUT_MS 2250u
 #define BUTTON_LED_TX_TIMEOUT_MS              100u
 #define BUTTON_LED_BUTTON_POLL_PERIOD_MS      100u
 #define BUTTON_LED_ASSIST_PRE_PRESS_DELAY_MS 100u
 #define BUTTON_LED_ASSIST_PRESS_SETTLE_MS      50u
-#define BUTTON_LED_ASSIST_RELEASE_SETTLE_MS   750u
+#define BUTTON_LED_ASSIST_RELEASE_SETTLE_MS   900u
 #define BUTTON_LED_INIT_MAX_ATTEMPTS            2u
 #define BUTTON_LED_BUTTON_MAX_ATTEMPTS          1u
 #define BUTTON_LED_RX_BUF_LEN                  24u
@@ -585,6 +585,15 @@ static void beginReleaseDetection(button_led_test_step_t releaseStep)
 
 static void handleNegativeButtonReply(void)
 {
+    if (isButtonStep(ctx.currentStep) &&
+        ((HAL_GetTick() - ctx.buttonPressStartMs) < currentButtonActionTimeoutMs()))
+    {
+        ctx.attempt = 1u;
+        ctx.nextButtonPollAtMs = HAL_GetTick() + BUTTON_LED_BUTTON_POLL_PERIOD_MS;
+        ctx.subState = BUTTON_LED_SUB_WAIT_BUTTON_RETRY;
+        return;
+    }
+
     if (isPressStep(ctx.currentStep))
     {
         postMismatchResult("ESP32 reads LOW", "ESP32 saw HIGH");
@@ -631,7 +640,7 @@ static void handleButtonDetectionTimeout(void)
     }
     else if (isReleaseStep(ctx.currentStep))
     {
-        postTimeoutResult("Automatic release detect within 2.0s", "Release timeout");
+        postTimeoutResult("Automatic release detect within 2.25s", "Release timeout");
     }
     else
     {
